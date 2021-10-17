@@ -1,0 +1,4 @@
+ppa:teejee2008/timeshift
+ppa:bit-team/stable
+ppa:lutris-team/lutris
+ppa:daniel-milde/gdu
