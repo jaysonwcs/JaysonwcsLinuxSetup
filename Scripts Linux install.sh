@@ -55,6 +55,9 @@ do
 done < "Apps apt.txt"
 echo
 
+sudo apt autoremove
+sudo apt clean
+
 
 
 
