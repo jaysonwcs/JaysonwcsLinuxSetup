@@ -1,5 +1,6 @@
 echo -e "${BLUE}Instalando Driver Wifi${RESET}"
 read -p "Pressione [Enter] para continuar:"
+mkdir Sources
 cd Sources/
 git clone https://github.com/brektrou/rtl8821CU.git
 cd rtl8821CU/
