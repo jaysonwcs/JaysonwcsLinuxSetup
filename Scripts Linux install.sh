@@ -13,6 +13,8 @@ sudo apt upgrade -y
 
 read -p "Pressione [Enter] para continuar:"
 
+sudo apt install -y build-essential
+
 echo -e "${BOLD}Instalando drivers:"
 echo -e "${BOLD}===================${RESET}"
 echo
@@ -79,6 +81,10 @@ sudo apt clean
 
 read -p "Pressione [Enter] para continuar:"
 
+
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+read -p "Pressione [Enter] para continuar:"
 
 echo -e "${BOLD}Instalando pacotes Flatpak:"
 echo -e "${BOLD}===========================${RESET}"
