@@ -1,4 +1,4 @@
-echo -e "${BLUE}Adicionando repositório Snapper"
+echo -e "${BLUE}Adicionando repositório Snapper${RESET}"
 read -p "Pressione [Enter] para continuar:"
 echo 'deb http://download.opensuse.org/repositories/filesystems:/snapper/xUbuntu_20.04/ /' | sudo tee /etc/apt/sources.list.d/filesystems:snapper.list
 read -p "Pressione [Enter] para continuar:"
