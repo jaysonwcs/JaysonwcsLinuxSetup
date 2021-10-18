@@ -9,7 +9,7 @@ sudo apt update
 
 read -p "Pressione [Enter] para continuar:"
 
-sudo apt upgrade
+sudo apt upgrade -y
 
 read -p "Pressione [Enter] para continuar:"
 
