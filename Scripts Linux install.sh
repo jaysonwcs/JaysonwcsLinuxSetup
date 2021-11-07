@@ -6,7 +6,6 @@ echo -e "${BOLD}Atualizando sistema:"
 echo -e "====================${RESET}"
 
 sudo apt update
-
 read -p "Pressione [Enter] para continuar:"
 
 sudo apt upgrade -y
@@ -94,7 +93,7 @@ read -p "Pressione [Enter] para continuar:"
 while read line
 do
 	echo -e "${BLUE}Instalando $line:${RESET}"
-	flatpak install flathub --noninteractive $line
+	flatpak install flathub -y $line
 done < "Apps flatpak.txt"
 echo
 
