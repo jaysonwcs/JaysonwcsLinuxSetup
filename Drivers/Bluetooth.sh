@@ -14,6 +14,9 @@ cd 202*/rtkbt-firmware/$D/rtlbt
 S=sudo;D=$D/rtl_bt/$N
 for C in a_ b_;do for L in fw $G;do F=$D$C$L$E;[ -f $F ]&&$S cp $F{,-`date +%s`};$S cp -f $N$C$L $F;done;done
 
+sudo cp /lib/firmware/rtl_bt/rtl8761b_fw.bin /lib/firmware/rtl_bt/rtl8761bu_fw.bin
+sudo cp /lib/firmware/rtl_bt/rtl8761b_config.bin /lib/firmware/rtl_bt/rtl8761bu_config.bin
+
 cd "${CWD}"
 read -p "Pressione [Enter] para continuar:"
 
