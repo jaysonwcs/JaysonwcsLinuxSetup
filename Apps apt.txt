@@ -8,7 +8,6 @@ backintime-qt4
 lutris
 webapp-manager
 sublime-text
-heroic
 htop
 pv
 plexmediaserver
