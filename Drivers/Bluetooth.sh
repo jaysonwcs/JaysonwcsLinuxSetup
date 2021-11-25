@@ -8,6 +8,7 @@ read -p "Pressione [Enter] para continuar:"
 wget https://mpow.s3-us-west-1.amazonaws.com/mpow_BH519A_driver+for+Linux.7z
 read -p "Pressione [Enter] para continuar:"
 D=/lib/firmware;N=rtl8761;G=config;E=.bin
+sudo apt install -y p7zip-full
 7z x ./mpow_BH519A_driver+for+Linux.7z
 read -p "Pressione [Enter] para continuar:"
 cd 202*/rtkbt-firmware/$D/rtlbt
