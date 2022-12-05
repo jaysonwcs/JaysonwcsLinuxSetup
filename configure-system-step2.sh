@@ -2,6 +2,14 @@
 
 pacman -S - < packages_pacman
 
+systemctl enable NetworkManager
+systemctl enable bluetooth
+systemctl enable cups
+systemctl enable gdm.service
+systemctl enable sshd.service
+systemctl enable cronie.service
+systemctl enable cockpit.socket
+
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 git clone https://github.com/marlonrichert/zsh-hist.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-hist
 

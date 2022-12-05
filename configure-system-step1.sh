@@ -31,14 +31,6 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 useradd -mG wheel jayson
 
-systemctl enable NetworkManager
-systemctl enable bluetooth
-systemctl enable cups
-systemctl enable gdm.service
-systemctl enable sshd.service
-systemctl enable cronie.service
-systemctl enable cockpit.socket
-
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 echo 'Defina agora a senha dos usuários root e jayson, altere o arquivo visudo e siga para o passo 2'
