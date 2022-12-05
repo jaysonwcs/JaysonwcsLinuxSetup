@@ -8,7 +8,7 @@ btrfs subvolume create @home
 btrfs subvolume create @etc
 mkdir @etc/work
 mkdir @etc/upper
-mkdir users/jayson
+mkdir -p users/jayson
 btrfs subvolume create users/jayson/@games
 btrfs subvolume create users/jayson/@steamapps
 btrfs subvolume create users/jayson/@cache
