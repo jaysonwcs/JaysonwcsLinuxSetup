@@ -29,10 +29,11 @@ mount /dev/sda4 -o noatime,compress=zstd,commit=120,subvol=/@ /mnt
 cd /mnt
 
 mkdir {btr_pool,boot,home,root,var}
-mkdir var/{cache,tmp,lib,snap}
 mount /dev/sda1 boot
 mount /dev/sda4 -o noatime,compress=zstd,commit=120,subvol=/var/@main var
 mount /dev/sda4 -o noatime,compress=zstd,commit=120,subvol=/@home home
+
+mkdir var/{cache,tmp,lib,snap}
 mount /dev/sda4 -o noatime,compress=zstd,commit=120,subvol=/var/@cache var/cache
 mount /dev/sda4 -o noatime,compress=zstd,commit=120,subvol=/var/@tmp var/tmp
 mkdir var/lib/flatpak
