@@ -18,8 +18,8 @@ echo '\n127.0.0.1  localhost\n::1        localhost\n127.0.1.1  Laptop.localdomai
 
 sed -i 's/#Color/Color/g' /etc/pacman.conf
 sed -i 's/#ParallelDownloads = 5/ParallelDownloads = 5/g' /etc/pacman.conf
-sed -i 's/\#\[multilib\]/\[multilib\]/g' /etc/pacman.conf
-sed -i 's/#Include = \/etc\/pacman.d\/mirrorlist/Include = \/etc\/pacman.d\/mirrorlist/g' /etc/pacman.conf
+#sed -i 's/\#\[multilib\]/\[multilib\]/g' /etc/pacman.conf
+#sed -i 's/#Include = \/etc\/pacman.d\/mirrorlist/Include = \/etc\/pacman.d\/mirrorlist/g' /etc/pacman.conf
 
 pacman -Sy
 
@@ -31,5 +31,10 @@ useradd -mG wheel jayson
 
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-echo 'Agora, edite o pacman.conf, defina a senha dos usuários root e jayson, altere o arquivo visudo e siga para o passo 2'
+echo 'Agora:'
+echo '1) edite o pacman.conf'
+echo '2) defina a senha dos usuários root e jayson'
+echo '3) altere o arquivo visudo'
+echo '4) descomente multilib no arquivo pacman.conf'
+echo '...e siga para o passo 2'
 
