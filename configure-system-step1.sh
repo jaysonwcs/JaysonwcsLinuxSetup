@@ -21,15 +21,11 @@ sed -i 's/#ParallelDownloads = 5/ParallelDownloads = 5/g' /etc/pacman.conf
 #sed -i 's/\#\[multilib\]/\[multilib\]/g' /etc/pacman.conf
 #sed -i 's/#Include = \/etc\/pacman.d\/mirrorlist/Include = \/etc\/pacman.d\/mirrorlist/g' /etc/pacman.conf
 
-pacman -Sy
-
 sed -i 's/MODULES=()/MODULES=(btrfs)/g' /etc/mkinitcpio.conf
 
 mkinitcpio -p linux
 
 useradd -mG wheel jayson
-
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 echo 'Agora:'
 echo '1) edite o pacman.conf'

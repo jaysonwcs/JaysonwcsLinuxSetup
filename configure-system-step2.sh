@@ -1,5 +1,9 @@
 #!/bin/bash
 
+pacman -Sy
+
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
 pacman -S - < packages_pacman
 
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=SYSTEM
