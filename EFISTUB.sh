@@ -14,7 +14,7 @@ else
 
 	sudo efibootmgr -d /dev/sda1 -c -L "Arch EFI LTS" -l '\vmlinuz-linux-lts' -u "root=UUID=$1 rw sysrq_always_enabled=1 resume=UUID=$2 rootflags=subvol=@ initrd=initramfs-linux-lts.img"
 
-	sudo efibootmgr -d /dev/sda1 -c -L "Grub" -l '\EFI\SYSTEM\grubx64.efi'
+	#sudo efibootmgr -d /dev/sda1 -c -L "Grub" -l '\EFI\SYSTEM\grubx64.efi'
 
-	sudo efibootmgr -d /dev/sda1 -c -L "Recovery" -l '\EFI\BOOT\BOOTX64.EFI'
+	#sudo efibootmgr -d /dev/sda1 -c -L "Recovery" -l '\EFI\BOOT\BOOTX64.EFI'
 fi
