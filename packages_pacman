@@ -1,6 +1,5 @@
 arch-install-scripts
 archlinux-wallpaper
-archlinux-keyring
 asciiquarium
 bluez
 bluez-utils
@@ -48,7 +47,6 @@ trash-cli
 tree
 usbutils
 vlc
-which
 wireplumber
 wpa_supplicant
 xdg-user-dirs
