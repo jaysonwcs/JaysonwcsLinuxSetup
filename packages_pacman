@@ -17,7 +17,6 @@ flatpak
 fortune-mod
 gamemode
 gdu
-git
 github-cli
 glances
 glow
@@ -26,9 +25,6 @@ grub-btrfs
 hddtemp
 htop
 inotify-tools
-linux-headers
-linux-lts
-linux-lts-headers
 lolcat
 man-db
 man-pages
@@ -57,4 +53,3 @@ wpa_supplicant
 xdg-user-dirs
 xdg-utils
 zerotier-one
-zsh
