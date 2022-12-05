@@ -26,8 +26,4 @@ cd /
 mkdir Sources
 cd Sources
 
-git clone https://aur.archlinux.org/paru-bin.git
-cd paru-bin
-makepkg -si
-
-echo 'Instale o Gnome e continue para o passo 3'
+echo 'Instale o Paru e o Gnome e continue para o passo 3'
