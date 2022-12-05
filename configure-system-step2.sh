@@ -19,6 +19,7 @@ git clone https://github.com/marlonrichert/zsh-hist.git ${ZSH_CUSTOM:-~/.oh-my-z
 
 sed -i 's/plugins=(git)/plugins=(git z zsh-autosuggestions safe-paste sudo themes zsh-hist)/g' .zshrc
 
+cd /
 mkdir Sources
 cd Sources
 
