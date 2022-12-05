@@ -31,5 +31,5 @@ useradd -mG wheel jayson
 
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-echo 'Defina agora a senha dos usuários root e jayson, altere o arquivo visudo e siga para o passo 2'
+echo 'Agora, edite o pacman.conf, defina a senha dos usuários root e jayson, altere o arquivo visudo e siga para o passo 2'
 
