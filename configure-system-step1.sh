@@ -28,9 +28,9 @@ mkinitcpio -p linux
 useradd -mG wheel jayson
 
 echo 'Agora:'
-echo '1) edite o pacman.conf'
-echo '2) defina a senha dos usuários root e jayson'
-echo '3) altere o arquivo visudo'
-echo '4) descomente multilib no arquivo pacman.conf'
+echo '1) defina a senha dos usuários root e jayson'
+echo '2) altere o arquivo visudo'
+echo '3) descomente multilib no arquivo pacman.conf'
+echo '4) instale o OhMyZsh (script install_ohmyzsh.sh)'
 echo '...e siga para o passo 2'
 
