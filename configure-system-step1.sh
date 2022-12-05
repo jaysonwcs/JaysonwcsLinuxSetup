@@ -25,10 +25,6 @@ sed -i 's/MODULES=()/MODULES=(btrfs)/g' /etc/mkinitcpio.conf
 
 mkinitcpio -p linux
 
-grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=SYSTEM
-
-grub-mkconfig -o /boot/grub/grub.cfg
-
 useradd -mG wheel jayson
 
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
