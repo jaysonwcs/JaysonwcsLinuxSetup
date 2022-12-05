@@ -13,12 +13,12 @@ mkswap /dev/sda3
 swapon /dev/sda3
 mkfs.btrfs /dev/sda4
 
-dd bs=4M if=/dev/sdb2 of=/dev/sda2 conv=fsync oflag=direct status=progress
+dd bs=4M if=/dev/sdb1 of=/dev/sda2 conv=fsync oflag=direct status=progress
 
 mkdir /mnt/{image,boot}
 mount /dev/sdb1 /mnt/image
 mount /dev/sda1 /mnt/boot
-rsync -ahPv /mnt//image/EFI/ /mnt/boot
+rsync -ahPv /mnt/image/EFI/ /mnt/boot
 
 umount /mnt/image
 umount /mnt/boot
