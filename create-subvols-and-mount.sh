@@ -23,7 +23,8 @@ mkdir btrbk_snapshots
 mkdir update_snapshots
 
 cd -
-mount /dev/sda4 /mnt
+umount /mnt
+
 mount /dev/sda4 -o noatime,compress=zstd,commit=120,subvol=/@ /mnt
 cd /mnt
 
