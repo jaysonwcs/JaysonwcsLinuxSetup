@@ -14,5 +14,3 @@ pacstrap /mnt base base-devel linux linux-headers linux-firmware linux-lts linux
 genfstab -U /mnt >> /mnt/etc/fstab
 
 echo 'Verifique o fstab. Se estiver tudo certo, execute o arch-chroot'
-
-arch-chroot /mnt
