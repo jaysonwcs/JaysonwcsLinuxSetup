@@ -47,6 +47,7 @@ trash-cli
 tree
 usbutils
 vlc
+wget
 wireplumber
 wpa_supplicant
 xdg-user-dirs
