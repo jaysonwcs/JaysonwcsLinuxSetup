@@ -11,4 +11,8 @@ pacman -S archlinux-keyring
 
 pacstrap /mnt base base-devel linux linux-headers linux-firmware linux-lts linux-lts-headers nano btrfs-progs kitty-terminfo git zsh
 
+genfstab -U /mnt >> /mnt/etc/fstab
+
+echo 'Verifique o fstab. Se estiver tudo certo, execute o arch-chroot'
+
 arch-chroot /mnt
