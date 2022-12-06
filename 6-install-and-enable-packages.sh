@@ -16,6 +16,7 @@ systemctl enable cups
 systemctl enable sshd.service
 systemctl enable cronie.service
 systemctl enable cockpit.socket
+systemctl enable gdm.service
 
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 git clone https://github.com/marlonrichert/zsh-hist.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-hist
@@ -26,4 +27,4 @@ cd /
 mkdir Sources
 cd Sources
 
-echo 'Instale o Paru e o Gnome e continue para o passo 3'
+echo 'Instale o Paru e continue para o passo 7'

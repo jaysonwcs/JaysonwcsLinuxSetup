@@ -16,9 +16,9 @@ mkfs.btrfs -f /dev/sda4
 dd bs=4M if=/dev/sdb1 of=/dev/sda2 conv=fsync oflag=direct status=progress
 
 mkdir /mnt/{image,boot}
-mount /dev/sdb1 /mnt/image
+mount /dev/sdb2 /mnt/image
 mount /dev/sda1 /mnt/boot
-rsync -ahPv /mnt/image/EFI /mnt/boot
+rsync -ahPv /mnt/image/ /mnt/boot
 
 umount /mnt/image
 umount /mnt/boot

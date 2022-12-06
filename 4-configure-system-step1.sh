@@ -20,8 +20,7 @@ echo '127.0.1.1  Laptop.localdomain Laptop' >> /etc/hosts
 
 sed -i 's/#Color/Color/g' /etc/pacman.conf
 sed -i 's/#ParallelDownloads = 5/ParallelDownloads = 5/g' /etc/pacman.conf
-#sed -i 's/\#\[multilib\]/\[multilib\]/g' /etc/pacman.conf
-#sed -i 's/#Include = \/etc\/pacman.d\/mirrorlist/Include = \/etc\/pacman.d\/mirrorlist/g' /etc/pacman.conf
+sed -zi 's/#\[multilib\]\n#Include = \/etc\/pacman.d\/mirrorlist/\[multilib\]\nInclude = \/etc\/pacman.d\/mirrorlist/g' pacman.conf
 
 sed -i 's/MODULES=()/MODULES=(btrfs)/g' /etc/mkinitcpio.conf
 
@@ -32,7 +31,5 @@ useradd -mG wheel jayson
 echo 'Agora:'
 echo '1) defina a senha dos usuários root e jayson'
 echo '2) altere o arquivo visudo'
-echo '3) descomente multilib no arquivo pacman.conf'
-echo '4) instale o OhMyZsh (script install_ohmyzsh.sh)'
+echo '3) instale o OhMyZsh (script install_ohmyzsh.sh)'
 echo '...e siga para o passo 2'
-
