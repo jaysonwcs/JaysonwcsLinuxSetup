@@ -15,8 +15,6 @@ mkfs.btrfs -f /dev/sda4
 
 dd bs=4M if=/dev/sdb1 of=/dev/sda2 conv=fsync oflag=direct status=progress
 
-efibootmgr -d /dev/sda1 -c -L "Recovery" -l '\EFI\BOOT\BOOTX64.EFI'
-
 mkdir /mnt/{image,boot}
 mount /dev/sdb1 /mnt/image
 mount /dev/sda1 /mnt/boot
@@ -27,3 +25,5 @@ umount /mnt/boot
 
 rmdir /mnt/image
 rmdir /mnt/boot
+
+efibootmgr -d /dev/sda1 -c -L "Recovery" -l '\EFI\BOOT\BOOTX64.EFI'

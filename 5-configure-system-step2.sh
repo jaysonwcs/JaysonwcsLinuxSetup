@@ -26,4 +26,4 @@ cd /
 mkdir Sources
 cd Sources
 
-echo 'Instale o Paru e o Gnome e continue para o passo 3'
+echo 'Instale o Paru, o OhMyZsh e o Gnome e continue para o passo 3'
