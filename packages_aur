@@ -6,7 +6,7 @@ game-devices-udev
 gdm-tools
 gnome-browser-connector
 neo-matrix
-paru
+paru-bin
 rmtrash
 safe-rm
 snapd
