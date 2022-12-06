@@ -9,7 +9,7 @@ pacman -Sy
 
 pacman -S archlinux-keyring
 
-pacstrap /mnt base base-devel linux linux-headers linux-firmware linux-lts linux-lts-headers nano btrfs-progs kitty-terminfo git zsh
+pacstrap /mnt base base-devel linux linux-headers linux-firmware linux-lts linux-lts-headers nano btrfs-progs kitty-terminfo git zsh acpi
 
 genfstab -U /mnt >> /mnt/etc/fstab
 
