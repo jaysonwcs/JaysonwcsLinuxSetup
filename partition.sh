@@ -20,7 +20,7 @@ efibootmgr -d /dev/sda1 -c -L "Recovery" -l '\EFI\BOOT\BOOTX64.EFI'
 mkdir /mnt/{image,boot}
 mount /dev/sdb1 /mnt/image
 mount /dev/sda1 /mnt/boot
-rsync -ahPv /mnt/image/EFI/ /mnt/boot
+rsync -ahPv /mnt/image/EFI /mnt/boot
 
 umount /mnt/image
 umount /mnt/boot
