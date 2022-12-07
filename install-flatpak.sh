@@ -2,6 +2,6 @@
 
 while read line
 do
-	echo -e "${BLUE}Instalando $line:${RESET}"
+	echo -e "Instalando $line:"
 	flatpak install flathub -y $line
-done < "Apps flatpak.txt"
+done < "packages_flatpak"
