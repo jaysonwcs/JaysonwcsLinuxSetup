@@ -10,7 +10,6 @@ print
 
 mkfs.fat -F32 /dev/sda1
 mkswap /dev/sda3
-swapon /dev/sda3
 mkfs.btrfs -f /dev/sda4
 
 dd bs=4M if=/dev/sdb1 of=/dev/sda2 conv=fsync oflag=direct status=progress

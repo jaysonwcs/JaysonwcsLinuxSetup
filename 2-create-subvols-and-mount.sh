@@ -41,3 +41,4 @@ mount /dev/sda4 -o noatime,compress=zstd,commit=120,subvol=/var/@flatpak var/lib
 mount /dev/sda4 -o noatime,compress=zstd,commit=120,subvol=/var/@snap var/snap
 mount /dev/sda4 -o noatime,compress=zstd,commit=120,subvol=/ btr_pool
 mount /dev/sda4 -o noatime,compress=zstd,commit=120,subvol=/@root_user root
+swapon /dev/sda3
