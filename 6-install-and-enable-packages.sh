@@ -2,6 +2,10 @@
 
 pacman -Sy
 
+pacman -S reflector
+
+reflector --country Brazil --sort rate --latest 200 --save /etc/pacman.d/mirrorlist
+
 pacman -S - < packages_pacman
 
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=SYSTEM
