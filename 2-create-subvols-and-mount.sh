@@ -46,11 +46,11 @@ mkdir home/jayson/{.cache,.var,.local,Downloads,Games}
 mkdir home/jayson/.var/app
 mkdir -p home/jayson/.local/share/Steam
 
-mount /dev/sda4 -o noatime,compress=zstd,commit=120,subvol=/home/jayson/@games home/jayson/Games
-mount /dev/sda4 -o noatime,compress=zstd,commit=120,subvol=/home/jayson/@downloads home/jayson/Downloads
-mount /dev/sda4 -o noatime,compress=zstd,commit=120,subvol=/home/jayson/@cache home/jayson/.cache
-mount /dev/sda4 -o noatime,compress=zstd,commit=120,subvol=/home/jayson/@flatpak home/jayson/.var/app
-mount /dev/sda4 -o noatime,compress=zstd,commit=120,subvol=/home/jayson/@steam home/jayson/.local/share/Steam
+mount /dev/sda4 -o noatime,compress=zstd,commit=120,subvol=/users/jayson/@games home/jayson/Games
+mount /dev/sda4 -o noatime,compress=zstd,commit=120,subvol=/users/jayson/@downloads home/jayson/Downloads
+mount /dev/sda4 -o noatime,compress=zstd,commit=120,subvol=/users/jayson/@cache home/jayson/.cache
+mount /dev/sda4 -o noatime,compress=zstd,commit=120,subvol=/users/jayson/@flatpak home/jayson/.var/app
+mount /dev/sda4 -o noatime,compress=zstd,commit=120,subvol=/users/jayson/@steam home/jayson/.local/share/Steam
 
 mkdir var/{cache,tmp,lib,snap}
 mount /dev/sda4 -o noatime,compress=zstd,commit=120,subvol=/var/@cache var/cache
