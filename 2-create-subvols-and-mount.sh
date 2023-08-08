@@ -60,8 +60,8 @@ mount /dev/sda4 -o noatime,compress=zstd,commit=120,subvol=/var/@flatpak var/lib
 mount /dev/sda4 -o noatime,compress=zstd,commit=120,subvol=/var/@snap var/snap
 mount /dev/sda4 -o noatime,compress=zstd,commit=120,subvol=/ btr_pool
 
-mkdir root/{.cache,Downloads}
 mount /dev/sda4 -o noatime,compress=zstd,commit=120,subvol=/users/root/@main root
+mkdir root/{.cache,Downloads}
 mount /dev/sda4 -o noatime,compress=zstd,commit=120,subvol=/users/root/@downloads root/Downloads
 mount /dev/sda4 -o noatime,compress=zstd,commit=120,subvol=/users/root/@cache root/.cache
 
