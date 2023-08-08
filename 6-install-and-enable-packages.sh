@@ -2,13 +2,13 @@
 
 pacman -Sy
 
-pacman -S reflector
+# pacman -S reflector
 
 reflector --country Brazil --sort rate --latest 15 --save /etc/pacman.d/mirrorlist
 
 pacman -S - < packages_pacman
 
-grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=SYSTEM
+grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB
 
 grub-mkconfig -o /boot/grub/grub.cfg
 
@@ -17,13 +17,13 @@ grub-mkconfig -o /boot/grub/grub.cfg
 systemctl enable NetworkManager
 systemctl enable bluetooth
 systemctl enable cups
-systemctl enable sshd.service
-systemctl enable cronie.service
+systemctl enable sshd
+systemctl enable cronie
 systemctl enable cockpit.socket
-systemctl enable gdm.service
+# systemctl enable gdm
 
-cd /
-mkdir Sources
-cd Sources
+# cd /
+# mkdir Sources
+# cd Sources
 
 echo 'Instale o Paru e continue para o passo 7'

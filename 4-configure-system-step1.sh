@@ -27,6 +27,7 @@ sed -i 's/MODULES=()/MODULES=(btrfs)/g' /etc/mkinitcpio.conf
 mkinitcpio -p linux
 
 useradd -mG wheel jayson
+chown jayson:jayson -R /home/jayson
 
 echo 'Agora:'
 echo '1) defina a senha dos usuários root e jayson'

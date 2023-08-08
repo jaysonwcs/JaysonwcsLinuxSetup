@@ -66,3 +66,5 @@ mount /dev/sda4 -o noatime,compress=zstd,commit=120,subvol=/users/root/@download
 mount /dev/sda4 -o noatime,compress=zstd,commit=120,subvol=/users/root/@cache root/.cache
 
 swapon /dev/sda3
+
+cd /
