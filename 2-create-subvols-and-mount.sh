@@ -9,21 +9,21 @@ btrfs subvolume create @
 btrfs subvolume create @etc
 mkdir @etc/work
 mkdir @etc/upper
-mkdir -p users/jayson
+mkdir -p users/jayson/_btrbk_snap
 btrfs subvolume create users/jayson/@games
 btrfs subvolume create users/jayson/@steam
 btrfs subvolume create users/jayson/@cache
 btrfs subvolume create users/jayson/@main
 btrfs subvolume create users/jayson/@flatpak
 btrfs subvolume create users/jayson/@downloads
-mkdir var
+mkdir -p var/_btrbk_snap
 btrfs subvolume create var/@flatpak
 btrfs subvolume create var/@snap
 btrfs subvolume create var/@cache
 btrfs subvolume create var/@tmp
 btrfs subvolume create var/@main
 btrfs subvolume create var/@plex
-mkdir users/root
+mkdir -p users/root/_btrbk_snap
 btrfs subvolume create users/root/@downloads
 btrfs subvolume create users/root/@cache
 btrfs subvolume create users/root/@main
