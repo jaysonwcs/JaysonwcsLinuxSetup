@@ -9,4 +9,4 @@ mv ~/.zsh_history ~/.local/state/zsh/history
 mkdir -p ~/.config/zsh
 mv ~/.zshrc ~/.config/zsh/.zshrc
 
-export $XDG_DATA_HOME=$HOME/.local/share
+export $XDG_DATA_HOME="$HOME/.local/share"
