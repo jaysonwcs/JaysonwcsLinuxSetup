@@ -25,12 +25,20 @@ sed -zi 's/#\[multilib\]\n#Include = \/etc\/pacman.d\/mirrorlist/\[multilib\]\nI
 sed -i 's/MODULES=()/MODULES=(btrfs)/g' /etc/mkinitcpio.conf
 
 mkinitcpio -p linux
+mkinitcpio -p linux-zen
+mkinitcpio -p linux-lts
 
 useradd -mG wheel jayson
 chown jayson:jayson -R /home/jayson
 
+git clone https://github.com/jaysonwcs/dotfiles.git --recursive
+mv dotfiles .dotfiles
+cd .dotfiles
+./install-profile default
+
 echo 'Agora:'
-echo '1) defina a senha dos usuários root e jayson'
-echo '2) altere o arquivo visudo'
-echo '3) instale o OhMyZsh (script install_ohmyzsh.sh)'
-echo '...e siga para o passo 2'
+echo '1) defina a senha dos usuários root e jayson (passwd e passwd jayson)'
+echo '2) altere o arquivo visudo (EDITOR=nano visudo)'
+echo '3) instale dotfiles no usuário padrão
+echo '4) instale o OhMyZsh (scripts número 5)'
+echo '...e siga para o próximo passo'

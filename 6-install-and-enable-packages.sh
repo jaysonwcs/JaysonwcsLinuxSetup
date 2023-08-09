@@ -20,6 +20,7 @@ systemctl enable cups
 systemctl enable sshd
 systemctl enable cronie
 systemctl enable cockpit.socket
+systemctl enable btrbk.timer
 # systemctl enable gdm
 
 # cd /
