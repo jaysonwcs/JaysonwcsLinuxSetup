@@ -5,6 +5,7 @@ cd /mnt
 
 btrfs subvolume create @
 # btrfs subvolume create @home
+# btrfs subvolume create @boot
 btrfs subvolume create @etc
 mkdir @etc/work
 mkdir @etc/upper
@@ -36,8 +37,10 @@ mount /dev/sda4 -o noatime,compress=zstd,commit=120,subvol=/@ /mnt
 cd /mnt
 
 mkdir {btr_pool,boot,home,root,var}
-mkdir boot/efi
-mount /dev/sda1 boot/efi
+# mount /dev/sda4 -o noatime,compress=zstd,commit=120,subvol=/@boot boot
+# mkdir boot/efi
+# mount /dev/sda1 boot/efi
+mount /dev/sda1 boot
 mount /dev/sda4 -o noatime,compress=zstd,commit=120,subvol=/var/@main var
 mkdir home/jayson
 mount /dev/sda4 -o noatime,compress=zstd,commit=120,subvol=/users/jayson/@main home/jayson

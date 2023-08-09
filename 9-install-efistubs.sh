@@ -10,7 +10,7 @@ else
 	echo "Comando:"
 	echo "sudo efibootmgr -d /dev/sda1 -c -L \"Arch EFI\" -l '\vmlinuz-linux' -u \"root=UUID=$1 rw sysrq_always_enabled=1 resume=UUID=$2 rootflags=subvol=@ initrd=initramfs-linux.img\""
 	
-	sudo efibootmgr -d /dev/sda1 -c -L "Arch EFI" -l '\vmlinuz-linux' -u "root=UUID=$1 rw sysrq_always_enabled=1 resume=UUID=$2 rootflags=subvol=@ initrd=initramfs-linux.img root=UUID=acdbcc8f-901f-4a6b-a17d-6a36f7831d14 amd_iommu=on iommu=1 iommu=pt modprobe.blacklist=pcspkr,snd_pcsp fbcon=map:01 lsm=landlock,lockdown,yama,integrity,apparmor,bpf"
+	sudo efibootmgr -d /dev/sda1 -c -L "Arch EFI" -l '\vmlinuz-linux' -u "root=UUID=$1 rw sysrq_always_enabled=1 resume=UUID=$2 rootflags=subvol=@ initrd=initramfs-linux.img root=UUID=$1 amd_iommu=on iommu=1 iommu=pt modprobe.blacklist=pcspkr,snd_pcsp fbcon=map:01 lsm=landlock,lockdown,yama,integrity,apparmor,bpf"
 
 	sudo efibootmgr -d /dev/sda1 -c -L "Arch EFI LTS" -l '\vmlinuz-linux-lts' -u "root=UUID=$1 rw sysrq_always_enabled=1 resume=UUID=$2 rootflags=subvol=@ initrd=initramfs-linux-lts.img amd_iommu=on iommu=1 iommu=pt modprobe.blacklist=pcspkr,snd_pcsp fbcon=map:01 lsm=landlock,lockdown,yama,integrity,apparmor,bpf single nomodeset"
 

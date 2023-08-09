@@ -2,13 +2,11 @@ btrbk-pac-git
 btrfsmaintenance
 f3
 game-devices-udev
-jellyfin-bin
+kernel-update-hook
 neo-matrix
-plex-media-server
 powerstat
 rmtrash
 safe-rm
 smem
-snapd
 ventoy-bin
 xdg-ninja
