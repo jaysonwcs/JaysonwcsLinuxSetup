@@ -24,9 +24,9 @@ sed -zi 's/#\[multilib\]\n#Include = \/etc\/pacman.d\/mirrorlist/\[multilib\]\nI
 
 sed -i 's/MODULES=()/MODULES=(btrfs)/g' /etc/mkinitcpio.conf
 
-mkinitcpio -p linux
-mkinitcpio -p linux-zen
-mkinitcpio -p linux-lts
+# mkinitcpio -p linux
+# mkinitcpio -p linux-zen
+# mkinitcpio -p linux-lts
 
 useradd -mG wheel jayson
 chown jayson:jayson -R /home/jayson
