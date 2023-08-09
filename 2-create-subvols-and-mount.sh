@@ -65,6 +65,6 @@ mkdir root/{.cache,Downloads}
 mount /dev/sda4 -o noatime,compress=zstd,commit=120,subvol=/users/root/@downloads root/Downloads
 mount /dev/sda4 -o noatime,compress=zstd,commit=120,subvol=/users/root/@cache root/.cache
 
-swapon /dev/sda3
+# swapon /dev/sda3
 
 cd /
