@@ -34,6 +34,6 @@ chown jayson:jayson -R /home/jayson
 echo 'Agora:'
 echo '1) defina a senha dos usuários root e jayson (passwd e passwd jayson)'
 echo '2) altere o arquivo visudo (EDITOR=nano visudo)'
-echo '3) instale dotfiles no usuário padrão
-echo '4) instale o OhMyZsh (scripts número 5)'
+echo '3) instale o OhMyZsh (scripts número 5)'
+echo '4) instale dotfiles no usuário padrão'
 echo '...e siga para o próximo passo'
