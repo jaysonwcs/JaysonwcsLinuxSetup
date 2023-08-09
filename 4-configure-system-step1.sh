@@ -31,11 +31,6 @@ mkinitcpio -p linux-lts
 useradd -mG wheel jayson
 chown jayson:jayson -R /home/jayson
 
-git clone https://github.com/jaysonwcs/dotfiles.git --recursive
-mv dotfiles .dotfiles
-cd .dotfiles
-./install-profile default
-
 echo 'Agora:'
 echo '1) defina a senha dos usuários root e jayson (passwd e passwd jayson)'
 echo '2) altere o arquivo visudo (EDITOR=nano visudo)'
