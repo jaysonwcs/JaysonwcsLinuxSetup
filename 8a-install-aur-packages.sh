@@ -1,4 +1,4 @@
 #!/bin/bash
 
-paru -S - < packages_aur
+paru -S - < ~/JaysonwcsLinuxSetup/packages_aur
 paru -c
