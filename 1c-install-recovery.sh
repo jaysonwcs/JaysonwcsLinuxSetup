@@ -15,8 +15,8 @@ else
 	dd bs=4M if=${1} of=$2 conv=fsync oflag=direct status=progress
 
 	mkdir /mnt/{arch-boot,system-boot}
-	LOOPDEVICE=$(losetup -fP --show $1) 
-	mount ${LOOPDEVICE}2 /mnt/arch-boot
+	LOOPDEVICE=$(losetup -fP --show $1)
+	mount ${LOOPDEVICE}p2 /mnt/arch-boot
 	mount $3 /mnt/system-boot
 	rsync -ahPvv /mnt/arch-boot/ /mnt/system-boot
 
@@ -25,6 +25,8 @@ else
 
 	rmdir /mnt/arch-boot
 	rmdir /mnt/system-boot
+
+	losetup -d $LOOPDEVICE
 
 	efibootmgr -d $3 -c -L "Recovery" -l '\EFI\BOOT\BOOTX64.EFI'
 fi
