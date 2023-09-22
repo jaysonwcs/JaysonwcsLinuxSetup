@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [ -z "$1" ] || [ -z "$2" ] 
+  then
+    echo "Este script deve ser chamado passando o disco (dispositivo) onde a ISO está, e o arquivo ou partição onde deve ser gravada"
+    echo "Exemplo: ./1c-backup-iso.sh /dev/sda2"
+else
+  echo "==> Gravando ISO $1 no arquivo/dispositivo $2:"
+  echo "----------------------------------------------------------"
+	dd if=$1 of=$2 bs=4M conv=fsync,sparse status=progress
+fi

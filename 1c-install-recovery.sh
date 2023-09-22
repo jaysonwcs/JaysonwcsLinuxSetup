@@ -50,7 +50,17 @@ else
 	echo
 	echo "==> Criando entrada de boot EFI para partição recovery"
 	echo "------------------------------------------------------"
+
+	EFILINE=$(efibootmgr -u | grep 'Recovery')
+	EFIPOS=${EFILINE:4:4}
+
+	if [ "$EFIPOS" != "" ]
+	then
+		efibootmgr -b $EFIPOS -B
+	fi
+
 	efibootmgr -d $3 -c -L "Recovery" -l '\EFI\BOOT\BOOTX64.EFI'
+
 	echo
 	echo "============================================================="
 	echo "Script finalizado para arquivo ISO: $1 , partição recovery: $2, partição EFI: $3"
