@@ -1,26 +1,52 @@
-# Static information about the filesystems.
-# See fstab(5) for details.
-
-# <file system> <dir> <type> <options> <dump> <pass>
 # /dev/sda3
-UUID=4de8e36c-949b-40b9-8b5c-8fb9d221fa49	/         	btrfs     	ro,noatime,compress=zstd:3,ssd,space_cache=v2,commit=120,subvol=/@	0 1
+UUID=cc52e03b-557a-42cd-8813-fd568dca681a	/         	btrfs     	rw,noatime,compress=zstd:3,ssd,discard=async,space_cache=v2,commit=120,subvolid=265,subvol=/@	0 0
+
+# /dev/sda3
+UUID=cc52e03b-557a-42cd-8813-fd568dca681a	/btr_pool 	btrfs     	rw,noatime,compress=zstd:3,ssd,discard=async,space_cache=v2,commit=120,subvolid=5,subvol=/	0 0
 
 # /dev/sda1
-UUID=F737-7190      	/boot     	vfat      	rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=ascii,shortname=mixed,utf8,errors=remount-ro	0 2
-
-UUID=4de8e36c-949b-40b9-8b5c-8fb9d221fa49	/btr_pool         	btrfs     	rw,noatime,compress=zstd:3,ssd,space_cache=v2,commit=120,subvol=/	0 1
+UUID=1028-9923      	/boot     	vfat      	rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=ascii,shortname=mixed,utf8,errors=remount-ro	0 2
 
 # /dev/sda3
-UUID=4de8e36c-949b-40b9-8b5c-8fb9d221fa49	/home     	btrfs     	rw,noatime,compress=zstd:3,ssd,space_cache=v2,commit=120,subvol=/@home	0 2
-UUID=4de8e36c-949b-40b9-8b5c-8fb9d221fa49	/home/jayson/.cache     	btrfs     	rw,noatime,compress=zstd:3,ssd,space_cache=v2,commit=120,subvol=/@jayson_cache	0 2
-UUID=4de8e36c-949b-40b9-8b5c-8fb9d221fa49	/home/jayson/.local/share/Steam/steamapps     	btrfs     	rw,noatime,compress=zstd:3,ssd,space_cache=v2,commit=120,subvol=/@steamapps	0 2
+UUID=cc52e03b-557a-42cd-8813-fd568dca681a	/var      	btrfs     	rw,noatime,compress=zstd:3,ssd,discard=async,space_cache=v2,commit=120,subvolid=262,subvol=/var/@main	0 0
 
 # /dev/sda3
-UUID=4de8e36c-949b-40b9-8b5c-8fb9d221fa49	/var      	btrfs     	rw,noatime,compress=zstd:3,ssd,space_cache=v2,commit=120,subvol=/@var	0 2
-UUID=4de8e36c-949b-40b9-8b5c-8fb9d221fa49	/var/cache      	btrfs     	rw,noatime,compress=zstd:3,ssd,space_cache=v2,commit=120,subvol=/@var_cache	0 2
-UUID=4de8e36c-949b-40b9-8b5c-8fb9d221fa49	/var/lib/flatpak      	btrfs     	rw,noatime,compress=zstd:3,ssd,space_cache=v2,commit=120,subvol=/@flatpak	0 2
+/btr_pool/@bkp_off/cache	/var/cache			none	bind	0	0
 
-# /dev/sda2 LABEL=Swap
-UUID=87d3e260-5e3d-4e79-a7b8-bc237fe49407	none      	swap      	defaults  	0 0
+# /dev/sda3
+/btr_pool/@bkp_off/tmp	/var/tmp			none	bind	0	0
 
-overlay   /etc    overlay   x-systemd.requires=/btr_pool,defaults,index=off,metacopy=off,lowerdir=/etc,upperdir=/btr_pool/@etc/upper,workdir=/btr_pool/@etc/work    0   2
+# /dev/sda3
+/btr_pool/@bkp_off/flatpak	/var/lib/flatpak			none	bind	0	0
+
+# /dev/sda3
+/btr_pool/@bkp_off/snap	/var/snap			none	bind	0	0
+
+# /dev/sda3
+UUID=cc52e03b-557a-42cd-8813-fd568dca681a	/home     	btrfs     	rw,noatime,compress=zstd:3,ssd,discard=async,space_cache=v2,commit=120,subvolid=257,subvol=/@home	0 0
+
+# /dev/sda3
+/btr_pool/@bkp_off/games	/home/jayson/Games			none	bind	0	0
+
+# /dev/sda3
+/btr_pool/@bkp_off/downloads	/home/jayson/Downloads			none	bind	0	0
+
+# /dev/sda3
+/btr_pool/@bkp_off/cache_home	/home/jayson/.cache			none	bind	0	0
+
+# /dev/sda3
+/btr_pool/@bkp_off/flatpak_home	/home/jayson/.var/app			none	bind	0	0
+
+# /dev/sda3
+/btr_pool/@bkp_off/steam	/home/jayson/.local/share/Steam			none	bind	0	0
+
+# /dev/sda3
+UUID=cc52e03b-557a-42cd-8813-fd568dca681a	/root     	btrfs     	rw,noatime,compress=zstd:3,ssd,discard=async,space_cache=v2,commit=120,subvolid=264,subvol=/@root_user	0 0
+
+# /dev/sda3
+/btr_pool/@bkp_off/downloads_root	/root/Downloads			none	bind	0	0
+
+# /dev/sda3
+/btr_pool/@bkp_off/cache_root	/root/.cache			none	bind	0	0
+
+#overlay   /etc    overlay   x-systemd.requires=/btr_pool/@etc,defaults,index=off,metacopy=off,lowerdir=/etc,upperdir=/btr_pool/@etc/upper,workdir=/btr_pool/@etc/work    0   2
