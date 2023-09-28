@@ -8,7 +8,7 @@ mount $2 -o noatime,compress=zstd,commit=120,subvol=/@ $3
 cd $3
 
 if [ ! -d "btr_pool" ]; then
-	CREATE_DIRS = true
+	CREATE_DIRS=true
 fi
 
 if [ "$CREATE_DIRS" = true ]
