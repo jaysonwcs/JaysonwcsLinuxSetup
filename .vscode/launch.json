@@ -9,7 +9,8 @@
             "request": "launch",
             "name": "Bash-Debug (simplest configuration)",
             "program": "${file}",
-            "args": ["/dev/loop3", "5", "/mnt", "/run/media/jayson/Images/presystem.sfs"],
+            "args": ["-d", "test","-s", "5", "-m", "/mnt", "i", "/run/media/jayson/Images/presystem.sfs"],
+            // "args": ["/dev/loop3", "5", "/mnt", "/run/media/jayson/Images/presystem.sfs"],
             "terminalKind": "external",
         }
     ]
