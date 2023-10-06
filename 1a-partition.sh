@@ -1,10 +1,16 @@
 #!/bin/bash
 
-sudo parted -sa optimal -- /dev/sda \
+
+# bash x.sh /dev/sda 5 6
+
+end_second_partition=$(($2 + $3))
+
+echo "First: size $2 GiB, End: $2 GiB"
+echo "Second: size $3 GiB, End: $end_second_partition GiB"
+
+sudo parted -sa optimal -- "$1" \
 mklabel gpt \
-mkpart boot fat32 0% 2048MiB set 1 boot on \
-# mkpart recovery fat32 512MiB 1536MiB \
-mkpart recovery fat32 2048MiB 7168MiB \
-mkpart swap linux-swap 7168MiB 13312MiB set 3 swap on \
-mkpart system btrfs 13312MiB -1 \
+mkpart boot fat32 0% "$2"GiB set 1 boot on \
+mkpart swap linux-swap "$2"GiB "$end_second_partition"GiB set 2 swap on \
+mkpart system btrfs "$end_second_partition"GiB -1 \
 print
