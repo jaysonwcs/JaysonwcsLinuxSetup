@@ -13,8 +13,8 @@ from zeroconf import ServiceBrowser, Zeroconf
 
 
 TYPE = "_adb-tls-pairing._tcp.local."
-NAME = "debug"
-PASS = "123456"
+NAME = "ADBQR-connectPhoneOverWifi"
+PASS = "xK&432"
 FORMAT_QR = "WIFI:T:ADB;S:%s;P:%s;;"
 
 CMD_SHOW = "qrencode -t UTF8 '%s'"
