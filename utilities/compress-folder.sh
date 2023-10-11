@@ -1,0 +1,3 @@
+tar cg "/media/jayson/Arquivo/Backups/Desktop Incremental/Desktop.snar" -f - -C /media/jayson/Arquivo/Backups/ "Desktop Last Copy/" | pv -s $(du -sb "/media/jayson/Arquivo/Backups/Desktop Last Copy" | awk '{print $1}') | bzip2 > 
+
+tar c -f - /media/jayson/Arquivo/Backups/Arch-2Step-bootloader+header.img | pv -s $(du -sb /media/jayson/Arquivo/Backups/Arch-2Step-bootloader+header.img | awk '{print $1}') | bzip2 > /media/jayson/Arquivo/Backups/Arch-2Step-bootloader+header.img.tar.bz2
