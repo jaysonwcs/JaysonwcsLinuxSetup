@@ -189,6 +189,13 @@ sudo mount "$presystem_device" "$squash_dir"
 
 sudo rsync -ahS --info=progress2 "$squash_dir"/ "$presystem_dir"
 
+boot_dir="$presystem_dir"/boot
+if [ ! -d "$boot_dir" ]; then
+	sudo mkdir "$boot_dir"
+fi
+
+sudo mount "$main_device_parts"1 "$boot_dir"
+
 # ^^^  TERMINATE YOUR CODE BEFORE THE BOTTOM ARGBASH MARKER  ^^^
 
 # ] <-- needed because of Argbash
