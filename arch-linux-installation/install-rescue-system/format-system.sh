@@ -89,7 +89,7 @@ define_vars()
 	main_device="$1"
 	partition_size="$2"
 	mount_point="$3"
-	squash_device="$4"
+	squashfs_file="$4"
 }
 
 parse_commandline "$@"
@@ -131,7 +131,7 @@ esac
 
 define_vars "$_arg_device" "$_arg_size" "$_arg_mount" "$_arg_image"
 
-if [[ -z $main_device || -z $partition_size || -z $mount_point || -z $squash_device  ]]
+if [[ -z $main_device || -z $partition_size || -z $mount_point || -z $squashfs_file  ]]
 then
     echo "You need to pass values to all flags"
 fi
