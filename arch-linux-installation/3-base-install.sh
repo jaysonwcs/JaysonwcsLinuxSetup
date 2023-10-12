@@ -25,7 +25,7 @@ done
 
 pacstrap "$2" base base-devel linux-firmware linux-lts linux-lts-headers linux-zen linux-zen-headers nano btrfs-progs kitty-terminfo git zsh acpi rsync reflector "$ucode"
 
-genfstab -U "$2" >> "$1"/etc/fstab
+genfstab -U "$2" >> "$2"/etc/fstab
 
 echo "#overlay   /etc    overlay   x-systemd.requires=/btr_pool/@etc,defaults,index=off,metacopy=off,lowerdir=/etc,upperdir=/btr_pool/@etc/upper,workdir=/btr_pool/@etc/work    0   2" >> "$2"/etc/fstab
 
