@@ -6,7 +6,7 @@ pacman -Sy
 
 reflector --country Brazil --sort rate --latest 15 --save /etc/pacman.d/mirrorlist
 
-pacman -S - < ~/JaysonwcsLinuxSetup/packages_pacman
+pacman -S - < ~/JaysonwcsLinuxSetup/arch-linux-installation/packates-lists/packages_pacman
 
 # grub-install --target=x86_64-efi --efi-directory=/boot/efi --boot-directory=/boot/efi --bootloader-id=GRUB
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
