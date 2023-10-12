@@ -15,20 +15,20 @@ pacman -S archlinux-keyring
 while getopts 'ia' OPTION; do
 	case "$OPTION" in
 		i)
-			ucode=intel-ucode
+			ucode="intel-ucode"
 			;;
 		a)
-			ucode=amd-ucode
+			ucode="amd-ucode"
 			;;
 	esac
 done
 
-pacstrap "$1" base base-devel linux-firmware linux-lts linux-lts-headers linux-zen linux-zen-headers nano btrfs-progs kitty-terminfo git zsh acpi rsync reflector "$ucode"
+pacstrap "$2" base base-devel linux-firmware linux-lts linux-lts-headers linux-zen linux-zen-headers nano btrfs-progs kitty-terminfo git zsh acpi rsync reflector "$ucode"
 
-genfstab -U "$1" >> "$1"/etc/fstab
+genfstab -U "$2" >> "$1"/etc/fstab
 
-echo "#overlay   /etc    overlay   x-systemd.requires=/btr_pool/@etc,defaults,index=off,metacopy=off,lowerdir=/etc,upperdir=/btr_pool/@etc/upper,workdir=/btr_pool/@etc/work    0   2" >> "$1"/etc/fstab
+echo "#overlay   /etc    overlay   x-systemd.requires=/btr_pool/@etc,defaults,index=off,metacopy=off,lowerdir=/etc,upperdir=/btr_pool/@etc/upper,workdir=/btr_pool/@etc/work    0   2" >> "$2"/etc/fstab
 
-nano "$1"/etc/fstab
+nano "$2"/etc/fstab
 
 echo 'Verifique o fstab. Se estiver tudo certo, execute o arch-chroot'
