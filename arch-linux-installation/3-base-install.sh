@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#example: ./3-base-install.sh -a /mnt/system    (AMD)
+#or: ./3-base-install.sh -i /mnt/system			(Intel)
+
 sed -i 's/#Color/Color/g' /etc/pacman.conf
 sed -i 's/#ParallelDownloads = 5/ParallelDownloads = 5/g' /etc/pacman.conf
 # sed -i 's/\#\[multilib\]/\[multilib\]/g' pacman.conf /etc/pacman.conf
@@ -20,12 +23,12 @@ while [[ getopts 'ia' OPTION ]]; do
 	esac
 done
 
-pacstrap /mnt base base-devel linux-firmware linux-lts linux-lts-headers linux-zen linux-zen-headers nano btrfs-progs kitty-terminfo git zsh acpi rsync reflector "$ucode"
+pacstrap "$1" base base-devel linux-firmware linux-lts linux-lts-headers linux-zen linux-zen-headers nano btrfs-progs kitty-terminfo git zsh acpi rsync reflector "$ucode"
 
-genfstab -U /mnt >> /mnt/etc/fstab
+genfstab -U "$1" >> "$1"/etc/fstab
 
-echo "#overlay   /etc    overlay   x-systemd.requires=/btr_pool/@etc,defaults,index=off,metacopy=off,lowerdir=/etc,upperdir=/btr_pool/@etc/upper,workdir=/btr_pool/@etc/work    0   2" >> /mnt/etc/fstab
+echo "#overlay   /etc    overlay   x-systemd.requires=/btr_pool/@etc,defaults,index=off,metacopy=off,lowerdir=/etc,upperdir=/btr_pool/@etc/upper,workdir=/btr_pool/@etc/work    0   2" >> "$1"/etc/fstab
 
-nano /mnt/etc/fstab
+nano "$1"/etc/fstab
 
 echo 'Verifique o fstab. Se estiver tudo certo, execute o arch-chroot'
