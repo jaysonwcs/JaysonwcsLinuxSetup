@@ -12,7 +12,7 @@ pacman -Sy
 
 pacman -S archlinux-keyring
 
-while [[ getopts 'ia' OPTION ]]; do
+while [ getopts 'ia' OPTION ]; do
 	case "$OPTION" in
 		i)
 			ucode=intel-ucode
