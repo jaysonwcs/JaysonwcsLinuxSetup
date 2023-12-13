@@ -11,7 +11,7 @@ set imgdevpath="/dev/disk/by-uuid/$rootuuid"
 menuentry 'Rescue System (archiso)' {
 	set isofile='/arch.iso'
 	loopback loop $isofile
-	linux (loop)/arch/boot/x86_64/vmlinuz-linux img_dev=$imgdevpath img_loop=$isofile earlymodules=loop
+	linux (loop)/arch/boot/x86_64/vmlinuz-linux img_dev=$imgdevpath img_loop=$isofile earlymodules=loop amd_iommu=on iommu=1 iommu=pt modprobe.blacklist=pcspkr,snd_pcsp sysrq_always_enabled=1 cow_spacesize=4G
 	initrd (loop)/arch/boot/intel-ucode.img (loop)/arch/boot/amd-ucode.img (loop)/arch/boot/x86_64/initramfs-linux.img
 }
 
