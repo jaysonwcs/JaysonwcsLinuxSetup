@@ -13,8 +13,6 @@ END_SECOND_PARTITION=$(($END_BOOT_PART + $SIZE_IN_MB))
 echo "Second: size $2 GiB, End: $END_SECOND_PARTITION MB"
 
 sudo parted -sa optimal -- "$1" \
-# mklabel gpt \
-# mkpart boot fat32 0% "$2"GiB set 1 boot on \
 mkpart swap linux-swap "$END_BOOT_PART" "$END_SECOND_PARTITION"MB set 2 swap on \
 mkpart system btrfs "$END_SECOND_PARTITION"MB -1 \
 print
