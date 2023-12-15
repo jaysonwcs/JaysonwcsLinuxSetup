@@ -3,7 +3,7 @@
 
 # bash x.sh /dev/sda 6
 
-END_BOOT_PART=$(sudo parted -sa optimal -- "$1" print | grep boot | awk '{print $3}')
+END_BOOT_PART=$(sudo parted -sa optimal -- "$1" print | grep boot | awk '{print $3}' | grep -o '[0-9]\+')
 
 # end_second_partition=$(($2 + $3))
 SIZE_IN_MB=$(($2 * 1024))
