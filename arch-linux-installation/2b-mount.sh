@@ -61,3 +61,5 @@ mount -v --bind btr_pool/@bkp_off/downloads_root root/Downloads
 mount -v --bind btr_pool/@bkp_off/cache_root root/.cache
 
 cd ~ || exit
+
+findmnt -R "$3"
