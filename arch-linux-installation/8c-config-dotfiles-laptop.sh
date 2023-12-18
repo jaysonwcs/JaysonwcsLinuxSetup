@@ -1,4 +1,4 @@
 #!/bin/sh
 
-cd ~/.dotfiles
+cd /.dotfiles
 ./install-profile laptop
