@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# ./4-configure-system-step1.sh Laptop
+
 ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
 
 hwclock --systohc
@@ -12,11 +14,11 @@ echo LANG=pt_BR.UTF-8 >> /etc/locale.conf
 
 echo KEYMAP=br-abnt2 >> /etc/vconsole.conf
 
-echo Laptop >> /etc/hostname
+echo "$1" >> /etc/hostname
 
 echo '127.0.0.1  localhost' >> /etc/hosts
 echo '::1        localhost' >> /etc/hosts
-echo '127.0.1.1  Laptop.localdomain Laptop' >> /etc/hosts
+echo "127.0.1.1  "$1".localdomain "$1"" >> /etc/hosts
 
 sed -i 's/#Color/Color/g' /etc/pacman.conf
 sed -i 's/#ParallelDownloads = 5/ParallelDownloads = 5/g' /etc/pacman.conf
@@ -30,6 +32,10 @@ sed -i 's/MODULES=()/MODULES=(btrfs)/g' /etc/mkinitcpio.conf
 
 useradd -mG wheel jayson
 chown jayson:jayson -R /home/jayson
+
+passwd
+passwd jayson
+EDITOR=nano visudo 
 
 echo 'Agora:'
 echo '1) defina a senha dos usuários root e jayson (passwd e passwd jayson)'
