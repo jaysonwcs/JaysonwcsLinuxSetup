@@ -51,7 +51,7 @@ mount -v "$2" -o $SSD_options,subvol=@flatpak var/lib/flatpak
 mount -v --bind btr_pool/@bkp_off/cache var/cache
 mount -v --bind btr_pool/@bkp_off/tmp var/tmp
 
-# mount -v "$2" -o $SSD_options,subvol=@root_user root
+mount -v "$2" -o $SSD_options,subvol=@root_user root
 
 if [ "$CREATE_DIRS" = true ]; then
 	mkdir -v root/{.cache,Downloads}

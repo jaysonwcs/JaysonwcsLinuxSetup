@@ -17,7 +17,7 @@ btrfs subvolume create var/@flatpak
 btrfs subvolume create var/@snap
 btrfs subvolume create var/@main
 btrfs subvolume create var/@plex
-# btrfs subvolume create @root_user
+btrfs subvolume create @root_user
 btrfs subvolume create @games
 btrfs subvolume create @steam
 btrfs subvolume create @flatpak_home
