@@ -11,5 +11,9 @@ mv /btr_pool/@rw /btr_pool/@
 mount "$1" -o noatime,compress=zstd,commit=120,subvol=/@ /mnt
 # mount /dev/sda4 -o noatime,compress=zstd,commit=120,subvol=/@root_user /mnt/root
 arch-chroot /mnt bash -c 'mount -a; umount /etc'
-arch-chroot /mnt
-# arch-chroot /mnt zsh -c "su jayson - -c 'cd ~; $3'"
+# arch-chroot /mnt
+arch-chroot /mnt zsh -c "su jayson - -c 'cd ~; $2'"
+umount -R /mnt
+# grub-mkconfig -o /boot/grub/grub.cfg
+mv /btr_pool/@ /btr_pool/@rw
+btrfs subvolume snapshot -r /btr_pool/@rw /btr_pool/@
