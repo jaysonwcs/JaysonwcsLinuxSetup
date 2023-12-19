@@ -10,7 +10,7 @@ sed -i 's/#ParallelDownloads = 5/ParallelDownloads = 5/g' /etc/pacman.conf
 
 pacman -Sy
 
-pacman -S archlinux-keyring
+pacman -S archlinux-keyring --noconfirm
 
 while getopts 'ia' OPTION; do
 	case "$OPTION" in
@@ -30,5 +30,3 @@ genfstab -U "$2" >> "$2"/etc/fstab
 echo "overlay   /etc    overlay   x-systemd.requires=/btr_pool,defaults,index=off,metacopy=off,lowerdir=/etc,upperdir=/btr_pool/@etc/upper,workdir=/btr_pool/@etc/work    0   2" >> "$2"/etc/fstab
 
 nano "$2"/etc/fstab
-
-echo 'Verifique o fstab. Se estiver tudo certo, execute o arch-chroot'
