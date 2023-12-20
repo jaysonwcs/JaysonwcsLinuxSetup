@@ -6,7 +6,7 @@ source functions.sh
 
 btrbk -S --progress run
 
-btrfs subvolume delete /btr_pool/@last
+# btrfs subvolume delete /btr_pool/@last
 
 mount "$1" -o noatime,compress=zstd,commit=120,subvol=/@rw /mnt
 
