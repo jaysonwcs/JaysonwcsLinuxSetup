@@ -6,11 +6,13 @@ source functions.sh
 
 btrbk -S --progress run
 
+brtfs subvolume delete /btr_pool/@last
+
 mount "$1" -o noatime,compress=zstd,commit=120,subvol=/@rw /mnt
 
 /bin/arch-chroot /mnt bash << "_EOT_"
 mount -a
-umount /etc
+umount -R /etc
 _EOT_
 
 execute-in-update-system /mnt
