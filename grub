@@ -17,12 +17,12 @@ GRUB_PRELOAD_MODULES="part_gpt part_msdos"
 GRUB_TIMEOUT_STYLE=menu
 
 # Uncomment to use basic console
-#GRUB_TERMINAL_INPUT=console
+GRUB_TERMINAL_INPUT="console serial"
 
 # Uncomment to disable graphical terminal
-#GRUB_TERMINAL_OUTPUT=console
+GRUB_TERMINAL_OUTPUT="gfxterm serial"
 
-GRUB_TERMINAL="console serial"
+#GRUB_SERIAL_COMMAND="serial --unit=0 --speed=115200"
 GRUB_SERIAL_COMMAND="serial --unit=0 --speed=115200 --word=8 --parity=no --stop=1"
 
 # The resolution used on graphical terminal
