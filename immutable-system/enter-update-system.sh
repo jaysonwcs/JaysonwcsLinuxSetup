@@ -4,7 +4,7 @@
 
 source functions.sh
 
-btrbk -S --progress run
+# btrbk -S --progress run
 
 # btrfs subvolume delete /btr_pool/@last
 
