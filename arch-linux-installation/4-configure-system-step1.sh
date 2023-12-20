@@ -20,11 +20,13 @@ echo '127.0.0.1  localhost' | tee -a /etc/hosts
 echo '::1        localhost' | tee -a  /etc/hosts
 echo "127.0.1.1  "$1".localdomain "$1"" | tee -a /etc/hosts
 
-sed --debug -i 's/#Color/Color/g' /etc/pacman.conf
-sed --debug -i 's/#ParallelDownloads = 5/ParallelDownloads = 5/g' /etc/pacman.conf
-sed --debug -zi 's/#\[multilib\]\n#Include = \/etc\/pacman.d\/mirrorlist/\[multilib\]\nInclude = \/etc\/pacman.d\/mirrorlist/g' /etc/pacman.conf
+sed -i 's/#Color/Color/g' /etc/pacman.conf
+sed -i 's/#ParallelDownloads = 5/ParallelDownloads = 5/g' /etc/pacman.conf
+sed -zi 's/#\[multilib\]\n#Include = \/etc\/pacman.d\/mirrorlist/\[multilib\]\nInclude = \/etc\/pacman.d\/mirrorlist/g' /etc/pacman.conf
+cat /etc/pacman.conf
 
-sed --debug -i 's/MODULES=()/MODULES=(btrfs)/g' /etc/mkinitcpio.conf
+sed -i 's/MODULES=()/MODULES=(btrfs)/g' /etc/mkinitcpio.conf
+cat /etc/mkinitcpio.conf
 
 # mkinitcpio -p linux
 # mkinitcpio -p linux-zen
