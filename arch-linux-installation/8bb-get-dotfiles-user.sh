@@ -2,6 +2,6 @@
 
 gh auth login
 
-cd /
+cd ~/
 git clone https://github.com/jaysonwcs/dotfiles.git --recursive
 mv dotfiles .dotfiles
