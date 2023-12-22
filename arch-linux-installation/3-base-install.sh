@@ -26,7 +26,7 @@ done
 rm -v "$2"/boot/amd-ucode.img
 rm -v "$2"/boot/intel-ucode.img
 
-pacstrap "$2" base base-devel linux-firmware linux-lts linux-lts-headers linux-zen linux-zen-headers nano btrfs-progs kitty-terminfo git zsh acpi rsync reflector arch-install-scripts "$ucode"
+pacstrap "$2" base base-devel linux-firmware linux-lts linux-lts-headers linux-zen linux-zen-headers nano btrfs-progs kitty-terminfo git zsh acpi rsync reflector arch-install-scripts lsof "$ucode"
 
 genfstab -U "$2" >> "$2"/etc/fstab
 

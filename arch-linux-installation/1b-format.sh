@@ -1,6 +1,16 @@
 #!/bin/bash
 
-mkfs.fat -F32 /dev/sda1
-mkswap /dev/sda3
-swapon /dev/sda3
-mkfs.btrfs -f /dev/sda4
+# ./1b-format.sh /dev/sda
+
+mkfs.fat -F32 "$1"1
+
+lsblk "$1"1 -f
+
+mkswap "$1"2
+swapon "$1"2
+
+lsblk "$1"2 -f
+
+mkfs.btrfs -f "$1"3
+
+lsblk "$1"3 -f

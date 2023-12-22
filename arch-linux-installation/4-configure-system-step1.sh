@@ -6,7 +6,8 @@ ln -vsf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
 
 hwclock --systohc -v
 
-sed --debug -i 's/#pt_BR.UTF-8 UTF-8/pt_BR.UTF-8 UTF-8/g' /etc/locale.gen
+sed -i 's/#pt_BR.UTF-8 UTF-8/pt_BR.UTF-8 UTF-8/g' /etc/locale.gen
+cat /etc/locale.gen
 
 locale-gen
 
@@ -27,10 +28,6 @@ cat /etc/pacman.conf
 
 sed -i 's/MODULES=()/MODULES=(btrfs)/g' /etc/mkinitcpio.conf
 cat /etc/mkinitcpio.conf
-
-# mkinitcpio -p linux
-# mkinitcpio -p linux-zen
-# mkinitcpio -p linux-lts
 
 useradd -mG wheel jayson
 
