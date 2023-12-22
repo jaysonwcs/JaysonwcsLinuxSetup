@@ -12,7 +12,7 @@ source functions.sh
 
 mount -v "$1" -o $SSD_options,subvol=/@rw /mnt
 
-/bin/arch-chroot /mnt bash -c "mount -a; umount -R /etc, umount -R /var"
+/bin/arch-chroot /mnt bash -c "mount -a; umount -R /etc; umount -R /var"
 
 mount -v "$1" -o $SSD_options,subvol=/var/@main_rw /mnt/var
 mount -v "$1" -o $SSD_options,subvol=@snap /mnt/var/snap
