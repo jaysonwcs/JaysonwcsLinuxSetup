@@ -9,6 +9,7 @@ source functions.sh
 # btrfs subvolume delete /btr_pool/@last
 
 mount "$1" -o noatime,compress=zstd,commit=120,subvol=/@rw /mnt
+mount "$1" -o noatime,compress=zstd,commit=120,subvol=/var/@main_rw /mnt/var
 
 /bin/arch-chroot /mnt bash << "_EOT_"
 mount -a
