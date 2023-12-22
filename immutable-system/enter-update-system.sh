@@ -18,8 +18,8 @@ mount -v "$1" -o $SSD_options,subvol=/var/@main_rw /mnt/var
 mount -v "$1" -o $SSD_options,subvol=@snap /mnt/var/snap
 mount -v "$1" -o $SSD_options,subvol=@flatpak /mnt/var/lib/flatpak
 
-mount -v --bind btr_pool/@bkp_off/cache var/cache
-mount -v --bind btr_pool/@bkp_off/tmp var/tmp
+mount -v --bind /btr_pool/@bkp_off/cache /mnt/var/cache
+mount -v --bind /btr_pool/@bkp_off/tmp /mnt/var/tmp
 
 
 execute-in-update-system /mnt
