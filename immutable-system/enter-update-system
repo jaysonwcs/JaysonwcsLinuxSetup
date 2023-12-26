@@ -4,7 +4,7 @@
 
 SSD_options="noatime,compress=zstd,commit=120"
 
-source functions
+# source functions
 
 # btrbk -S --progress run
 
@@ -12,7 +12,12 @@ source functions
 
 mount -v "$1" -o $SSD_options,subvol=/@rw /mnt
 
-/bin/arch-chroot /mnt bash -c "mount -a; umount -R /etc; umount -R /var"
+/bin/arch-chroot /mnt bash << _EOT_
+mount -va
+umount -vR /etc
+umount -vR /var
+hostname ArchVM-Update
+_EOT_
 
 mount -v "$1" -o $SSD_options,subvol=/var/@main_rw /mnt/var
 mount -v "$1" -o $SSD_options,subvol=@snap /mnt/var/snap
@@ -21,8 +26,17 @@ mount -v "$1" -o $SSD_options,subvol=@flatpak /mnt/var/lib/flatpak
 mount -v --bind /btr_pool/@bkp_off/cache /mnt/var/cache
 mount -v --bind /btr_pool/@bkp_off/tmp /mnt/var/tmp
 
+findmnt -R /mnt -t btrfs,vfat,overlay
 
-execute-in-update-system /mnt
+/bin/arch-chroot /mnt /bin/zsh
+
+cp -v /boot/grub/grub.cfg /boot/grub/grub.cfg.bak
+sed -i 's/@rw/@/g' /boot/grub/grub.cfg
+grep --color @ /boot/grub/grub.cfg
+
+umount -vR /mnt
+
+# execute-in-update-system /mnt
 
 # /bin/arch-chroot /mnt
 # arch-chroot /mnt zsh -c "su jayson - -c 'cd ~; $3'"
