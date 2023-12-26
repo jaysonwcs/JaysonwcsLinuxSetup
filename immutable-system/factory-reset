@@ -5,13 +5,47 @@ if [[ $EUID -ne 0 ]]; then
 	exit 1
 fi
 
+DEPLOYED=$(cat deployed)
+
+echo "DEPLOYED = $DEPLOYED"
+
+if [[ $DEPLOYED = "TRUE" ]]; then
+	echo "Updated system was already deployed. You need to reboot first to do a new change on the system"
+	exit 1
+fi
+
+RESET=$(cat reset_done)
+
+echo "RESET = $RESET"
+
+if [[ $RESET = "TRUE" ]]; then
+	echo "System was factory-reset. You need to reboot first to continue using"
+	exit 1
+fi
+
 btrbk -S --progress run
+
+LAST_DIR=$(pwd)
 
 cd /btr_pool || return
 pwd
 
-# btrfs subvolume delete @last
-# mv -v @ @last
+if [[ -d @current ]]; then
+	btrfs subvolume delete @current
+fi
+
+if [[ -d var/@main_current ]]; then
+	btrfs subvolume delete var/@main_current
+fi
+
+if [[ -d @ ]]; then
+	mv -v @ @current
+fi
+
+if [[ -d var/@main ]]; then
+	mv -v var/@main var/@main_current
+fi
+
 btrfs subvolume delete @rw
 btrfs subvolume snapshot @base_system @rw
 btrfs subvolume snapshot -r @rw @
@@ -19,10 +53,13 @@ btrfs subvolume snapshot -r @rw @
 cd var || return
 pwd
 
-# btrfs subvolume delete @main_last
-# mv -v @main @main_last
 btrfs subvolume delete @main_rw
 btrfs subvolume snapshot @main_base @main_rw
 btrfs subvolume snapshot @main_rw @main
 
+cd "$LAST_DIR" || return
+pwd
+
 ./clean-etc
+
+mount -vB true_file reset_done
