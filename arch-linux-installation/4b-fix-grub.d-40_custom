@@ -3,5 +3,5 @@
 CONSOLE_PARAMS="console=tty0 console=ttyS0,115200"
 LINEs=$(grep "linux (loop)" /etc/grub.d/40_custom)
 LENGTH=$(grep "linux (loop)" /etc/grub.d/40_custom | awk '{print length}')
-FINAL_LINE="${LINE:0:$LENGTH} ${CONSOLE_PARAMS}
+FINAL_LINE="${LINE:0:$LENGTH} ${CONSOLE_PARAMS}"
 sed -i 's&${LINE}&${FINAL_LINE}&g' /etc/grub.d/40_custom
