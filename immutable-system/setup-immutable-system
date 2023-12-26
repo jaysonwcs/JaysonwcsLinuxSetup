@@ -16,4 +16,4 @@ btrfs subvolume snapshot -r var/@main_rw var/@main
 
 ORIGINAL_LINE=$(grep "/ " /etc/fstab)
 FINAL_LINE=$(echo $ORIGINAL_LINE | sed "s/rw/ro/g")
-sed "s&${ORIGINAL_LINE}&${FINAL_LINE}&g" /etc/fstab
+sed -i "s&${ORIGINAL_LINE}&${FINAL_LINE}&g" /etc/fstab
