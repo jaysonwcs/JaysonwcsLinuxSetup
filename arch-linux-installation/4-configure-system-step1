@@ -29,8 +29,6 @@ cat /etc/pacman.conf
 sed -i 's/MODULES=()/MODULES=(btrfs)/g' /etc/mkinitcpio.conf
 cat /etc/mkinitcpio.conf
 
-cp -v ../samples/40_custom /etc/grub.d
-
 useradd -mG wheel jayson
 
 cat /etc/passwd | grep jayson

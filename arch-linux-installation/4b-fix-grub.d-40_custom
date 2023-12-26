@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cp -v ../samples/40_custom /etc/grub.d
+
 CONSOLE_PARAMS="console=tty0 console=ttyS0,115200"
 LINE=$(grep "linux (loop)" /etc/grub.d/40_custom)
 LENGTH=$(grep "linux (loop)" /etc/grub.d/40_custom | awk '{print length}')
