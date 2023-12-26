@@ -4,7 +4,7 @@
 
 SSD_options="noatime,compress=zstd,commit=120"
 
-source functions.sh
+source functions
 
 # btrbk -S --progress run
 
