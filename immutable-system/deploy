@@ -2,10 +2,21 @@
 
 #./enter-update-system.sh /dev/sda4
 
-btrbk -S --progress run
+if [[ $EUID -ne 0 ]]; then
+	echo "This script must be executed as SUDO or ROOT"
+	exit 1
+fi
 
-# btrfs subvolume delete /btr_pool/@last
-# btrfs subvolume delete /btr_pool/var/@main_last
+DEPLOYED=$(cat deployed)
+
+echo "DEPLOYED = $DEPLOYED"
+
+if [[ $DEPLOYED = "TRUE" ]]; then
+	echo "Updated system was already deployed. You need to reboot first to do a new change on the system"
+	exit 1
+fi
+
+btrbk -S --progress run
 
 if [[ -d /btr_pool/@current ]]; then
 	btrfs subvolume delete /btr_pool/@current
@@ -15,7 +26,21 @@ fi
 mv -v /btr_pool/@ /btr_pool/@current
 mv -v /btr_pool/var/@main /btr_pool/var/@main_current
 
+if [[ -d /btr_pool/@ ]]; then
+	echo "Error: subvolume @ exists or was not removed before"
+	echo " Remove it first and reexecute this script"
+	exit 1
+fi
+
+if [[ -d /btr_pool/var/@main ]]; then
+	echo "Error: subvolume var/@main exists or was not removed before"
+	echo " Remove it first and reexecute this script"
+	exit 1
+fi
+
 btrfs subvolume snapshot -r /btr_pool/@rw /btr_pool/@
 btrfs subvolume snapshot /btr_pool/var/@main_rw /btr_pool/var/@main
 
 ./clean-etc
+
+mount -vB true_file deployed
