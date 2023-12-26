@@ -4,9 +4,24 @@
 #example:
 #./2-create-subvols-and-mount.sh /dev/sda1 /dev/sda3 /mnt
 
+if [[ -z "$1" ]] || [[ -z "$2" ]] || [[ -z "$3" ]]; then
+	echo "This script must be called passing the following arguments:"
+	echo "1) boot partition"
+	echo "2) system partition"
+	echo "3) folder to be mounted"
+	echo
+	echo "Example:"
+	echo "./mount /dev/sda1 /dev/sda3 /mnt/system"
+fi
+
+if [[ $EUID -ne 0 ]]; then
+	echo "This script must be executed as SUDO or ROOT"
+	exit 1
+fi
+
 SSD_options="noatime,compress=zstd,commit=120"
 
-mount -v "$2" -o $SSD_options,subvol=/@rw $3
+mount -v "$2" -o $SSD_options,subvol=/@rw "$3"
 cd "$3" || exit
 
 if [ ! -d "btr_pool" ]; then
@@ -47,6 +62,8 @@ fi
 
 mount -v "$2" -o $SSD_options,subvol=@snap var/snap
 mount -v "$2" -o $SSD_options,subvol=@flatpak var/lib/flatpak
+mount -v "$2" -o $SSD_options,subvol=/var/@portables var/lib/portables
+mount -v "$2" -o $SSD_options,subvol=/var/@machines var/lib/machines
 
 mount -v --bind btr_pool/@bkp_off/cache var/cache
 mount -v --bind btr_pool/@bkp_off/tmp var/tmp
