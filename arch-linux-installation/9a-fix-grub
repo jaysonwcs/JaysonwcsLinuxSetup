@@ -1,7 +1,7 @@
 #!/bin/bash
 
 LINE=$(grep GRUB_CMDLINE_LINUX_DEFAULT /etc/default/grub)
-LENGTH=$(grep GRUB_CMDLINE_LINUX_DEFAULT /etc/default/grub | awk -F ':' '{print length}')
+LENGTH=$(grep GRUB_CMDLINE_LINUX_DEFAULT /etc/default/grub | awk '{print length}')
 LENGTH=$(($LENGTH-1))
 CONSOLE_PARAMS="console=tty0 console=ttyS0,115200"
 FINAL_LINE="${LINE:0:$LENGTH} ${CONSOLE_PARAMS}\""
