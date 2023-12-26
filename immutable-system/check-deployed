@@ -1,0 +1,10 @@
+#!/bin/bash
+
+DEPLOYED=$(cat deployed)
+
+echo "DEPLOYED = $DEPLOYED"
+
+if [[ $DEPLOYED = "TRUE" ]]; then
+	echo "Updated system was already deployed. You need to reboot first to do a new change on the system"
+	exit 1
+fi
