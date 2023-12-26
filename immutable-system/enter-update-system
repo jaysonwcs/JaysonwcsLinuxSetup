@@ -23,6 +23,15 @@ if [[ $DEPLOYED = "TRUE" ]]; then
 	exit 1
 fi
 
+RESET=$(cat reset_done)
+
+echo "RESET = $RESET"
+
+if [[ $RESET = "TRUE" ]]; then
+	echo "System was factory-reset. You need to reboot first to continue using"
+	exit 1
+fi
+
 SSD_options="noatime,compress=zstd,commit=120"
 
 mount -v "$1" -o $SSD_options,subvol=/@rw /mnt

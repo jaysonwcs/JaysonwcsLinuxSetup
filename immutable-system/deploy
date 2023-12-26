@@ -7,6 +7,15 @@ if [[ $EUID -ne 0 ]]; then
 	exit 1
 fi
 
+RESET=$(cat reset_done)
+
+echo "RESET = $RESET"
+
+if [[ $RESET = "TRUE" ]]; then
+	echo "System was factory-reset. You need to reboot first to continue using"
+	exit 1
+fi
+
 DEPLOYED=$(cat deployed)
 
 echo "DEPLOYED = $DEPLOYED"
