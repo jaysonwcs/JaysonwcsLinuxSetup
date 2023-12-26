@@ -14,3 +14,5 @@ POS=$(grep -n GRUB_TERMINAL_OUTPUT /etc/default/grub | awk -F ':' '{print $1}')
 POS=$(($POS+1))
 sed -i "$POS i GRUB_SERIAL_COMMAND=\"serial --unit=0 --speed=115200 --word=8 --parity=no --stop=1\"" /etc/default/grub
 #sed -i "$POS i GRUB_SERIAL_COMMAND=\"serial --unit=0 --speed=115200\" /etc/default/grub
+
+grub-mkconfig -o /boot/grub/grub.cfg
