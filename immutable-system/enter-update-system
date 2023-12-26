@@ -1,14 +1,29 @@
 #!/bin/bash
 
-#./enter-update-system.sh /dev/sda4
+#./enter-update-system.sh /dev/sda3
+
+
+if [[ $EUID -ne 0 ]]; then
+	echo "This script must be executed as SUDO or ROOT"
+	exit 1
+fi
+
+if [[ -z "$1" ]]; then
+	echo "This script must be called passing system partition. Example:"
+	echo "./enter-update-system /dev/sda3"
+	exit 1
+fi
+
+DEPLOYED=$(cat deployed)
+
+echo "DEPLOYED = $DEPLOYED"
+
+if [[ $DEPLOYED = "TRUE" ]]; then
+	echo "Updated system was already deployed. You need to reboot first to do a new change on the system"
+	exit 1
+fi
 
 SSD_options="noatime,compress=zstd,commit=120"
-
-# source functions
-
-# btrbk -S --progress run
-
-# btrfs subvolume delete /btr_pool/@last
 
 mount -v "$1" -o $SSD_options,subvol=/@rw /mnt
 
@@ -22,6 +37,8 @@ _EOT_
 mount -v "$1" -o $SSD_options,subvol=/var/@main_rw /mnt/var
 mount -v "$1" -o $SSD_options,subvol=@snap /mnt/var/snap
 mount -v "$1" -o $SSD_options,subvol=@flatpak /mnt/var/lib/flatpak
+mount -v "$1" -o $SSD_options,subvol=/var/@portables var/lib/portables
+mount -v "$1" -o $SSD_options,subvol=/var/@machines var/lib/machines
 
 mount -v --bind /btr_pool/@bkp_off/cache /mnt/var/cache
 mount -v --bind /btr_pool/@bkp_off/tmp /mnt/var/tmp
@@ -35,8 +52,3 @@ sed -i 's/@rw/@/g' /boot/grub/grub.cfg
 grep --color @ /boot/grub/grub.cfg
 
 umount -vR /mnt
-
-# execute-in-update-system /mnt
-
-# /bin/arch-chroot /mnt
-# arch-chroot /mnt zsh -c "su jayson - -c 'cd ~; $3'"
