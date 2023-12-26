@@ -13,4 +13,4 @@ mv -v /btr_pool/var/@main /btr_pool/var/@main_last
 btrfs subvolume snapshot -r /btr_pool/@rw /btr_pool/@
 btrfs subvolume snapshot /btr_pool/var/@main_rw /btr_pool/var/@main
 
-clean-etc
+./clean-etc

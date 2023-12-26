@@ -18,4 +18,4 @@ btrfs subvolume delete @main_rw
 btrfs subvolume snapshot @main_base @main_rw
 btrfs subvolume snapshot -r @main_rw @main
 
-clean-etc
+./clean-etc
