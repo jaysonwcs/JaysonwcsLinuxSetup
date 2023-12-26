@@ -1,0 +1,3 @@
+#!/bin/bash
+
+rm -vrf /btr_pool/@etc/upper/*
