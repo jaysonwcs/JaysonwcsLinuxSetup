@@ -1,0 +1,11 @@
+#!/bin/bash
+
+cd /btr_pool
+pwd
+mv -v @ @rw
+btrfs subvolume snapshot -r @rw @base_system
+btrfs subvolume snapshot -r @rw @
+
+mv -v var/@main var/@main_rw
+btrfs subvolume snapshot -r var/@main_rw var/@main_base
+btrfs subvolume snapshot -r var/@main_rw var/@main
