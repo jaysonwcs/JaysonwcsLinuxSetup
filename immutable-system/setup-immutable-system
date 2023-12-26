@@ -2,7 +2,7 @@
 
 
 
-cd /btr_pool
+cd /btr_pool || return
 pwd
 
 mv -v @ @rw
@@ -15,5 +15,6 @@ btrfs subvolume snapshot -r var/@main_rw var/@main
 
 
 ORIGINAL_LINE=$(grep "/ " /etc/fstab)
-FINAL_LINE=$(echo $ORIGINAL_LINE | sed "s/rw/ro/g")
+# shellcheck disable=SC2116
+FINAL_LINE=$(echo "${ORIGINAL_LINE//rw/ro}")
 sed -i "s&${ORIGINAL_LINE}&${FINAL_LINE}&g" /etc/fstab
