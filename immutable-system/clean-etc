@@ -1,3 +1,4 @@
 #!/bin/bash
 
 rm -vrf /btr_pool/@etc/upper/*
+rm -vrf /btr_pool/@etc/upper/.*
