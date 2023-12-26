@@ -27,3 +27,5 @@ sed -i "${LINE_NUMBER} i /btr_pool/@bkp_off/cache_root   /root/.cache   none   b
 sed -i 's/,subvolid=[0-9]\+,/,/g' "$1"
 
 echo "overlay   /etc    overlay   x-systemd.requires=/btr_pool,defaults,index=off,metacopy=off,lowerdir=/etc,upperdir=/btr_pool/@etc/upper,workdir=/btr_pool/@etc/work    0   2" >> "$1"
+
+cat "$1"
