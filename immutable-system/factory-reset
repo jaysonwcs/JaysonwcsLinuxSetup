@@ -1,10 +1,12 @@
 #!/bin/bash
 
+btrbk -S --progress run
+
 cd /btr_pool
 pwd
 
-btrfs subvolume delete @last
-mv -v @ @last
+# btrfs subvolume delete @last
+# mv -v @ @last
 btrfs subvolume delete @rw
 btrfs subvolume snapshot @base_system @rw
 btrfs subvolume snapshot -r @rw @
@@ -12,10 +14,10 @@ btrfs subvolume snapshot -r @rw @
 cd var
 pwd
 
-btrfs subvolume delete @main_last
-mv -v @main @main_last
+# btrfs subvolume delete @main_last
+# mv -v @main @main_last
 btrfs subvolume delete @main_rw
 btrfs subvolume snapshot @main_base @main_rw
-btrfs subvolume snapshot -r @main_rw @main
+btrfs subvolume snapshot @main_rw @main
 
 ./clean-etc
