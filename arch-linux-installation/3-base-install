@@ -30,6 +30,4 @@ pacstrap "$2" base base-devel linux-firmware linux-lts linux-lts-headers linux-z
 
 genfstab -U "$2" >> "$2"/etc/fstab
 
-echo "overlay   /etc    overlay   x-systemd.requires=/btr_pool,defaults,index=off,metacopy=off,lowerdir=/etc,upperdir=/btr_pool/@etc/upper,workdir=/btr_pool/@etc/work    0   2" >> "$2"/etc/fstab
-
-nano "$2"/etc/fstab
+cat "$2"/etc/fstab
