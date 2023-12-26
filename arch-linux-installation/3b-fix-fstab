@@ -1,0 +1,29 @@
+#!/bin/bash
+
+LINE_NUMBER=$(grep -n '/var/cache' "$1" | awk -F ':' '{print $1}')
+sed -i "${LINE_NUMBER}d" "$1"
+sed -i "${LINE_NUMBER} i /btr_pool/@bkp_off/cache   /var/cache   none   bind   0 0" "$1"
+
+LINE_NUMBER=$(grep -n '/var/tmp' "$1" | awk -F ':' '{print $1}')
+sed -i "${LINE_NUMBER}d" "$1"
+sed -i "${LINE_NUMBER} i /btr_pool/@bkp_off/tmp   /var/tmp   none   bind   0 0" "$1"
+
+LINE_NUMBER=$(grep -n '/home/jayson/Downloads' "$1" | awk -F ':' '{print $1}')
+sed -i "${LINE_NUMBER}d" "$1"
+sed -i "${LINE_NUMBER} i /btr_pool/@bkp_off/downloads   /home/jayson/Downloads   none   bind   0 0" "$1"
+
+LINE_NUMBER=$(grep -n '/home/jayson/.cache' "$1" | awk -F ':' '{print $1}')
+sed -i "${LINE_NUMBER}d" "$1"
+sed -i "${LINE_NUMBER} i /btr_pool/@bkp_off/cache_home   /home/jayson/.cache   none   bind   0 0" "$1"
+
+LINE_NUMBER=$(grep -n '/root/Downloads' "$1" | awk -F ':' '{print $1}')
+sed -i "${LINE_NUMBER}d" "$1"
+sed -i "${LINE_NUMBER} i /btr_pool/@bkp_off/downloads_root   /root/Downloads   none   bind   0 0" "$1"
+
+LINE_NUMBER=$(grep -n '/root/.cache' "$1" | awk -F ':' '{print $1}')
+sed -i "${LINE_NUMBER}d" "$1"
+sed -i "${LINE_NUMBER} i /btr_pool/@bkp_off/cache_root   /root/.cache   none   bind   0 0" "$1"
+
+sed -i 's/,subvolid=[0-9]\+,/,/g' "$1"
+
+echo "overlay   /etc    overlay   x-systemd.requires=/btr_pool,defaults,index=off,metacopy=off,lowerdir=/etc,upperdir=/btr_pool/@etc/upper,workdir=/btr_pool/@etc/work    0   2" >> "$1"
