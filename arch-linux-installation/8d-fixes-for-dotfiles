@@ -1,10 +1,10 @@
 #!/bin/bash
 
-mkdir -p ~/.local/share
-mv ~/.oh-my-zsh ~/.local/share/oh-my-zsh
+mkdir -v -p ~/.local/share
+mv -v ~/.oh-my-zsh ~/.local/share/oh-my-zsh
 
-mkdir -p ~/.local/state/zsh
-mv ~/.zsh_history ~/.local/state/zsh/history
+mkdir -v -p ~/.local/state/zsh
+mv -v ~/.zsh_history ~/.local/state/zsh/history
 
-mkdir -p ~/.config/zsh
-mv ~/.zshrc ~/.config/zsh/.zshrc
+mkdir -v -p ~/.config/zsh
+mv -v ~/.zshrc ~/.config/zsh/.zshrc
