@@ -23,7 +23,7 @@ if [[ $RESET = "TRUE" ]]; then
 	exit 1
 fi
 
-btrbk -S --progress run
+btrbk --progress run
 
 LAST_DIR=$(pwd)
 
