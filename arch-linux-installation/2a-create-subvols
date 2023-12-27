@@ -4,7 +4,7 @@
 #example:
 #./2-create-subvols-and-mount.sh /dev/sda3 /mnt
 mount -v "$1" "$2"
-cd "$2" || return
+cd "$2" || exit
 
 btrfs subvolume create @
 btrfs subvolume create @home
@@ -29,5 +29,5 @@ mkdir -v btrbk_snapshots
 
 tree
 
-cd - || return
+cd - || exit
 umount -v "$2"
