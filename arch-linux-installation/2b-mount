@@ -37,7 +37,6 @@ fi
 
 mount -v "$2" -o $SSD_options,subvol=/ btr_pool
 mount -v "$1" boot
-mount -v "$2" -o $SSD_options,subvol="$5" var
 mount -v "$2" -o $SSD_options,subvol=@home home
 
 if [ "$CREATE_DIRS" = true ]; then
@@ -60,9 +59,10 @@ mount -v --bind btr_pool/@bkp_off/cache_home home/jayson/.cache
 
 if [ "$CREATE_DIRS" = true ]; then
 	mkdir -v var/{cache,tmp,lib,snap}
-	mkdir -v var/lib/flatpak
+	mkdir -v var/lib/{flatpak,portables,machines}
 fi
 
+mount -v "$2" -o $SSD_options,subvol="$5" var
 mount -v "$2" -o $SSD_options,subvol=@snap var/snap
 mount -v "$2" -o $SSD_options,subvol=@flatpak var/lib/flatpak
 mount -v "$2" -o $SSD_options,subvol=/var/@portables var/lib/portables
@@ -82,4 +82,4 @@ mount -v --bind btr_pool/@bkp_off/cache_root root/.cache
 
 cd ~ || exit
 
-findmnt -R "$3"
+findmnt -Rt btrfs,ext4,vfat,overlay "$3"
