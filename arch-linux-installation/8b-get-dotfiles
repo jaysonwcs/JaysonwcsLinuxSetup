@@ -2,9 +2,20 @@
 
 #./8b-get-dotfiles.sh /
 
+if [[ -z "$1" ]]; then
+    cat <<- _EOT_
+		This script must be called with the directory as argument
+
+		Example:
+		$0 /root
+	_EOT_
+
+	exit 1
+fi
+
 gh auth login
 
-cd "$1"
+cd "$1" || exit
 pwd
 git clone https://github.com/jaysonwcs/dotfiles.git --recursive
 mv -v dotfiles .dotfiles
