@@ -1,11 +1,11 @@
 #!/bin/bash
 
 mkdir -v ~/Sources
-cd ~/Sources
+cd ~/Sources || exit
 pwd
 git clone https://aur.archlinux.org/paru-bin.git
-cd paru-bin
+cd paru-bin || exit
 pwd
 makepkg -si
-cd ~/
+cd ~/ || exit
 pwd
