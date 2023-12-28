@@ -5,69 +5,93 @@ if [[ $EUID -ne 0 ]]; then
 	exit 1
 fi
 
-if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]
-  then
-    echo "Este script deve ser chamado passando o arquivo da ISO do Arch Linux, partição onde será instalado e partição EFI: comando [DEV-ARCH] [PART-DESTINO] [PART-EFI]"
-    echo "Exemplo: $0 arch.iso /dev/sda2 /dev/sda1"
+if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]; then
+	
+	cat <<- _EOT_
+		Este script deve ser chamado passando o arquivo da ISO do Arch Linux, partição onde será instalado e partição EFI: comando [DEV-ARCH] [PART-DESTINO] [PART-EFI]
+		Exemplo: $0 arch.iso /dev/sda2 /dev/sda1
+	_EOT_
 
 else
-	echo "============================================================="
-	echo "Iniciando script para arquivo ISO: $1 , partição recovery: $2, partição EFI: $3"
-	echo "============================================================="
-	echo
-	echo "==> Gravando arquivo ISO $1 na partição $2"
-	echo "--------------------------------------"
 
-	dd bs=4M if=${1} of=$2 conv=fsync oflag=direct status=progress
+	cat <<- _EOT_
+		=============================================================
+		Iniciando script para arquivo ISO: $1 , partição recovery: $2, partição EFI: $3
+		=============================================================
+		
+		==> Gravando arquivo ISO $1 na partição $2
+		--------------------------------------
+	_EOT_
 
-	echo "--------------------------------------"
-	echo
+	dd bs=4M if="$1" of="$2" conv=fsync oflag=direct status=progress
 
-	echo "=> Criando pastas de montagem /mnt/arch-boot e /mnt/system-boot"
 
-	mkdir /mnt/{arch-boot,system-boot}
+	cat <<- _EOT_
+		--------------------------------------
+		
+		=> Criando pastas de montagem /mnt/arch-boot e /mnt/system-boot
+	_EOT_
+
+
+	mkdir -v /mnt/{arch-boot,system-boot}
 
 	echo "=> Associando ISO $1 à um novo dispositivo loop"
-	LOOPDEVICE=$(losetup -fP --show $1)
-	echo ":::: Dispositivo loop criado para arquivo $1: $LOOPDEVICE"
-	echo ""
-	echo "=> Montando partição boot (${LOOPDEVICE}p2) do ISO $1 na pasta /mnt/arch-boot"
-	mount ${LOOPDEVICE}p2 /mnt/arch-boot
+	LOOPDEVICE=$(losetup -fP --show "$1")
+
+	cat <<- _EOT_
+		:::: Dispositivo loop criado para arquivo $1: $LOOPDEVICE
+		
+		=> Montando partição boot (${LOOPDEVICE}p2) do ISO $1 na pasta /mnt/arch-boot
+	_EOT_
+
+	mount -v "$LOOPDEVICE"p2 /mnt/arch-boot
+
 	echo "=> Montando partição boot ($3) do sistema na pasta /mnt/system-boot"
-	mount $3 /mnt/system-boot
-	echo
-	echo "==> Copiando arquivos de boot do ISO (montado em /mnt/arch-boot) para o sistema (montado em /mnt/system-boot)"
-	echo "---------------------------------------------------"
+	mount -v "$3" /mnt/system-boot
+	
+	cat <<- _EOT_
+		
+		==> Copiando arquivos de boot do ISO (montado em /mnt/arch-boot) para o sistema (montado em /mnt/system-boot)
+		---------------------------------------------------
+	_EOT_
+
 	rsync -ahPvv /mnt/arch-boot/ /mnt/system-boot
-	echo "---------------------------------------------------"
 
-	echo
-	echo "=> Desmontando e apagando pastas usadas (/mnt/arch-boot e /mnt/system-boot)"
-	umount /mnt/arch-boot
-	umount /mnt/system-boot
+	cat <<- _EOT_
+		---------------------------------------------------
 
-	rmdir /mnt/arch-boot
-	rmdir /mnt/system-boot
+		=> Desmontando e apagando pastas usadas (/mnt/arch-boot e /mnt/system-boot)
+	_EOT_
+
+	umount -v /mnt/arch-boot
+	umount -v /mnt/system-boot
+
+	rmdir -v /mnt/arch-boot
+	rmdir -v /mnt/system-boot
 
 	echo "=> Removendo dispositivo $LOOPDEVICE"
-	losetup -d $LOOPDEVICE
+	losetup -d "$LOOPDEVICE"
 
-	echo
-	echo "==> Criando entrada de boot EFI para partição recovery"
-	echo "------------------------------------------------------"
+	cat <<- _EOT_
+		
+		==> Criando entrada de boot EFI para partição recovery
+		------------------------------------------------------
+	_EOT_
 
 	EFILINE=$(efibootmgr -u | grep 'Recovery')
 	EFIPOS=${EFILINE:4:4}
 
 	if [ "$EFIPOS" != "" ]
 	then
-		efibootmgr -b $EFIPOS -B
+		efibootmgr -b "$EFIPOS" -B
 	fi
 
-	efibootmgr -d $3 -c -L "Recovery" -l '\EFI\BOOT\BOOTX64.EFI'
+	efibootmgr -d "$3" -c -L "Rescue System" -l '\EFI\BOOT\BOOTX64.EFI'
 
-	echo
-	echo "============================================================="
-	echo "Script finalizado para arquivo ISO: $1 , partição recovery: $2, partição EFI: $3"
-	echo "============================================================="
+	cat <<- _EOT_
+		
+		=============================================================
+		Script finalizado para arquivo ISO: $1 , partição recovery: $2, partição EFI: $3
+		=============================================================
+	_EOT_
 fi
