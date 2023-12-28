@@ -9,4 +9,11 @@ echo "change to directory \"$3\""
 echo "execute command \"$4\""
 echo
 
-arch-chroot "$1" /bin/bash -c "su $2 - -c 'cd $3; $4'"
+arch-chroot "$1" /bin/bash <<- _EOT_
+    su $2 - <<- _EOT2_
+		who am i
+		cd $3
+        pwd
+        $4
+	_EOT2_
+_EOT_
