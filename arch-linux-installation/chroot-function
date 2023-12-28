@@ -1,0 +1,33 @@
+#!/bin/bash
+
+#./chroot-command-user.sh /mnt/system jayson '/' 'JaysonwcsLinuxSetup/download-setup-scripts.sh'
+
+# echo "arch-chroot into \"$1\" directory"
+# echo "Inside CHROOT:"
+# echo "change to user \"$2\""
+# echo "change to directory \"$3\""
+# echo "execute command \"$4\""
+# echo
+
+if [[ -z "$1" ]] || [[ -z "$2" ]] || [[ -z "$3" ]] || [[ -z "$4" ]]; then
+    cat <<- _EOT_
+		This script must be called passing the following arguments:
+		1) directory to chroot in
+		2) user that will execute command
+		3) folder where command will be executed
+		4) file to source function execute()
+
+		Example:
+		$0 /dev/sda1 /dev/sda3 /mnt/system /@ /var/@main
+	_EOT_
+	exit 1
+fi
+
+
+# shellcheck disable=SC1090
+source "$4"
+
+export -f execute
+export "$5"
+
+arch-chroot "$1" /bin/bash -c "su $2 - -mc 'cd $3; pwd; execute'"
