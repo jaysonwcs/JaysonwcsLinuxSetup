@@ -3,6 +3,25 @@
 # $1 = system partition, $2 = mounted folder
 #example:
 #./2-create-subvols-and-mount.sh /dev/sda3 /mnt
+
+if [[ $EUID -ne 0 ]]; then
+	echo "This script must be executed as SUDO or ROOT"
+	exit 1
+fi
+
+if [[ -z $1 ]]; then
+    cat << _EOT_
+This script must be called passing the following arguments:
+1) System partition
+2) Folder where it will be mounted
+
+Example:
+$0 /dev/sda3 /mnt
+_EOT_
+
+    exit 1
+fi
+
 mount -v "$1" "$2"
 cd "$2" || exit
 

@@ -1,5 +1,21 @@
 #!/bin/bash
 
+if [[ $EUID -ne 0 ]]; then
+	echo "This script must be executed as SUDO or ROOT"
+	exit 1
+fi
+
+if [[ -z $1 ]]; then
+    cat <<- _EOT_
+		This script must be called passing the address of fstab file
+
+		Example:
+		$0 /mnt/etc/fstab
+	_EOT_
+
+    exit 1
+fi
+
 LINE_NUMBER=$(grep -n '/var/cache' "$1" | awk -F ':' '{print $1}')
 sed -i "${LINE_NUMBER}d" "$1"
 sed -i "${LINE_NUMBER} i /btr_pool/@bkp_off/cache   /var/cache   none   bind   0 0" "$1"
