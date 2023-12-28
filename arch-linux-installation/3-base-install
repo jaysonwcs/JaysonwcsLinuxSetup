@@ -3,31 +3,72 @@
 #example: ./3-base-install.sh -a /mnt/system    (AMD)
 #or: ./3-base-install.sh -i /mnt/system			(Intel)
 
+readonly AMD="amd-ucode"
+readonly INTEL="intel-ucode"
+
+
+if [[ $EUID -ne 0 ]]; then
+	echo "This script must be executed as SUDO or ROOT"
+	exit 1
+fi
+
+if [[ -z $1 ]]; then
+    cat <<- _EOT_
+		This script must be called passing the following arguments:
+		1) A flag indicating the microcode:
+			-i for intel
+			-a for amd
+		2) Folder where it will be mounted
+
+		Example:
+		$0 -a /mnt
+	_EOT_
+
+    exit 1
+fi
+
+if [[ -d "$2"/bin ]] && [[ $(du -sh "$2/bin" | cut -d "," -f 1 | cut -d "." -f 1 ) -gt 0 ]]; then
+	echo "There is already files on this disk. Format or erase this disk before continuing"
+	exit 1
+fi
+
 sed -i 's/#Color/Color/g' /etc/pacman.conf
 sed -i 's/#ParallelDownloads = 5/ParallelDownloads = 5/g' /etc/pacman.conf
 # sed -i 's/\#\[multilib\]/\[multilib\]/g' pacman.conf /etc/pacman.conf
 # sed -i 's/#Include = \/etc\/pacman.d\/mirrorlist/Include = \/etc\/pacman.d\/mirrorlist/g' /etc/pacman.conf
 
+grep Color /etc/pacman.conf
+grep ParallelDownloads /etc/pacman.conf
+
 pacman -Sy
 
-pacman -S archlinux-keyring --noconfirm
+if ! pacman -Qq | grep -q archlinux-keyring; then
+	pacman -S archlinux-keyring --noconfirm
+fi
 
 while getopts 'ia' OPTION; do
 	case "$OPTION" in
 		i)
-			ucode="intel-ucode"
+			ucode=$INTEL
 			;;
 		a)
-			ucode="amd-ucode"
+			ucode=$AMD
+			;;
+		*)
+			echo "flag $OPTION is invalid"
+			exit 1
 			;;
 	esac
 done
 
-rm -v "$2"/boot/amd-ucode.img
-rm -v "$2"/boot/intel-ucode.img
+if [[ "$ucode" = "$AMD" ]] && [[ -f "$2"/boot/amd-ucode.img ]]; then
+	rm -v "$2"/boot/amd-ucode.img
+elif [[ "$ucode" = "$INTEL" ]] && [[ -f "$2"/boot/intel-ucode.img ]]; then
+	rm -v "$2"/boot/intel-ucode.img
+fi
 
 pacstrap "$2" base base-devel linux-firmware linux-lts linux-lts-headers linux-zen linux-zen-headers nano btrfs-progs kitty-terminfo git zsh acpi rsync reflector arch-install-scripts lsof "$ucode"
 
 genfstab -U "$2" >> "$2"/etc/fstab
 
-cat "$2"/etc/fstab
+cat "$2/etc/fstab"
