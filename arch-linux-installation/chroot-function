@@ -28,6 +28,7 @@ fi
 source "$4"
 
 export -f execute
+# shellcheck disable=SC2163
 export "$5"
 
 arch-chroot "$1" /bin/bash -c "su $2 - -mc 'cd $3; pwd; execute'"
