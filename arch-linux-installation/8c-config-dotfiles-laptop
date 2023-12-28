@@ -1,5 +1,21 @@
-#!/bin/sh
+#!/bin/bash
 
-cd "$1".dotfiles
+if [[ $EUID -ne 0 ]]; then
+	echo "This script must be executed as SUDO or ROOT"
+	exit 1
+fi
+
+if [[ -z "$1" ]]; then
+    cat <<- _EOT_
+		This script must be called passing the parent folder as argument.
+
+		Example:
+		$0 /root/
+	_EOT_
+
+	exit 1
+fi
+
+cd "$1".dotfiles || exit
 pwd
 ./install-profile laptop
