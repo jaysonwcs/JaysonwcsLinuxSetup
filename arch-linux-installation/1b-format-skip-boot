@@ -8,12 +8,12 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 if [[ -z $1 ]]; then
-    cat << _EOT_
-This script must be called passing the device that will be formated
+    cat <<- _EOT_
+        This script must be called passing the device that will be formated
 
-Example
-$0 /dev/sda
-_EOT_
+        Example
+        $0 /dev/sda
+	_EOT_
     exit 1
 fi
 
