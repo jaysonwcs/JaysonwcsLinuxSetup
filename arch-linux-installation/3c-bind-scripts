@@ -1,0 +1,5 @@
+#!/bin/bash
+
+mkdir -v "$1"/arch-linux-installation
+chmod a+rwx "$1"/arch-linux-installation
+mount -vB ./ "$1"/arch-linux-installation
