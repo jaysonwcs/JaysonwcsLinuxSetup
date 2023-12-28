@@ -1,20 +1,64 @@
 #!/bin/bash
 
-if [ -z "$1" ] || [ -z "$2" ]
-  then
-    echo "Este script deve ser chamado passando o UUID da partição BTRFS e SWAP: EFISTUB [UUID-BTFS] [UUID-SWAP]"
-
-else
-	echo "UUID BTRFS: $1 , UUID SWAP: $2"
-
-	echo "Comando:"
-	echo "sudo efibootmgr -d /dev/sda1 -c -L \"Arch EFI\" -l '\vmlinuz-linux' -u \"root=UUID=$1 rw sysrq_always_enabled=1 resume=UUID=$2 rootflags=subvol=@ initrd=initramfs-linux.img\""
-	
-	sudo efibootmgr -d /dev/sda1 -c -L "Arch EFI" -l '\vmlinuz-linux' -u "root=UUID=$1 rw sysrq_always_enabled=1 resume=UUID=$2 rootflags=subvol=@ initrd=initramfs-linux.img root=UUID=$1 amd_iommu=on iommu=1 iommu=pt modprobe.blacklist=pcspkr,snd_pcsp fbcon=map:01 lsm=landlock,lockdown,yama,integrity,apparmor,bpf"
-
-	sudo efibootmgr -d /dev/sda1 -c -L "Arch EFI LTS" -l '\vmlinuz-linux-lts' -u "root=UUID=$1 rw sysrq_always_enabled=1 resume=UUID=$2 rootflags=subvol=@ initrd=initramfs-linux-lts.img amd_iommu=on iommu=1 iommu=pt modprobe.blacklist=pcspkr,snd_pcsp fbcon=map:01 lsm=landlock,lockdown,yama,integrity,apparmor,bpf single nomodeset"
-
-	#sudo efibootmgr -d /dev/sda1 -c -L "Grub" -l '\EFI\SYSTEM\grubx64.efi'
-
-	#sudo efibootmgr -d /dev/sda1 -c -L "Recovery" -l '\EFI\BOOT\BOOTX64.EFI'
+if [[ $EUID -ne 0 ]]; then
+	echo "This script must be executed as SUDO or ROOT"
+	exit 1
 fi
+
+if [ -z "$1" ] || [ -z "$2" ]; then
+    echo "Este script deve ser chamado passando o UUID da partição BTRFS e SWAP: EFISTUB [UUID-BTFS] [UUID-SWAP]"
+	exit 1
+fi
+
+while getopts 'vrsib2a' OPTION; do
+	case "$OPTION" in
+		v)
+			VM_params="console=tty0 console=ttyS0,115200"
+
+			;;
+		r)
+			rw_status=ro
+			;;
+		s)
+			sysrq="sysrq_always_enabled=1"
+			;;
+		i)
+			iommu="amd_iommu=on iommu=1 iommu=pt"
+			;;
+		b)
+			no_beep="modprobe.blacklist=pcspkr,snd_pcsp"
+			;;
+		2)
+			two_monitors=fbcon=map:01
+			;;
+		a)
+			security="lsm=landlock,lockdown,yama,integrity,apparmor,bpf"
+			;;
+		*)
+			echo "flag $OPTION is invalid"
+			exit 1
+			;;
+	esac
+done
+
+shift "$((OPTIND-1))"
+
+if [[ -z $rw_status ]]; then
+	rw_status=rw
+fi
+
+kernel_params="$rw_status $sysrq $iommu $no_beep $two_monitors $security $VM_params"
+
+echo "UUID BTRFS: $1 , UUID SWAP: $2"
+
+# echo "Comando:"
+## echo "sudo efibootmgr -d /dev/sda1 -c -L \"Arch EFI\" -l '\vmlinuz-linux' -u \"root=UUID=$1 rw sysrq_always_enabled=1 resume=UUID=$2 rootflags=subvol=@ initrd=initramfs-linux.img\""
+# printf "sudo efibootmgr -d /dev/sda1 -c -L \"Arch EFI\" -l '\vmlinuz-linux' -u \"root=UUID=%s rw sysrq_always_enabled=1 resume=UUID=%s rootflags=subvol=@ initrd=initramfs-linux.img\"" "$1" "$2"
+
+efibootmgr -d /dev/sda1 -c -L "Arch EFI" -l '\vmlinuz-linux-zen' -u "root=UUID=$1 resume=UUID=$2 rootflags=subvol=@ initrd=initramfs-linux-zen.img root=UUID=$1 $kernel_params"
+
+efibootmgr -d /dev/sda1 -c -L "Arch EFI Safe" -l '\vmlinuz-linux-lts' -u "root=UUID=$1 resume=UUID=$2 rootflags=subvol=@ initrd=initramfs-linux-lts.img $kernel_params single nomodeset"
+
+#sudo efibootmgr -d /dev/sda1 -c -L "Grub" -l '\EFI\SYSTEM\grubx64.efi'
+
+#sudo efibootmgr -d /dev/sda1 -c -L "Recovery" -l '\EFI\BOOT\BOOTX64.EFI'
