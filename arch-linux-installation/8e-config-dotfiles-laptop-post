@@ -1,10 +1,26 @@
-#!/bin/sh
+#!/bin/bash
+
+if [[ $EUID -ne 0 ]]; then
+	echo "This script must be executed as SUDO or ROOT"
+	exit 1
+fi
+
+if [[ -z "$1" ]]; then
+    cat <<- _EOT_
+		This script must be called passing the parent folder as argument.
+
+		Example:
+		$0 /root/
+	_EOT_
+
+	exit 1
+fi
 
 export XDG_DATA_HOME="$HOME/.local/share"
 echo "XDG_DATA_HOME=${XDG_DATA_HOME}"
 export XDG_CONFIG_HOME="$HOME/.config"
 echo "XDG_CONFIG_HOME=${XDG_CONFIG_HOME}"
 
-cd "$1".dotfiles
+cd "$1".dotfiles || exit
 pwd
 ./install-profile laptop_post
