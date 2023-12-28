@@ -1,8 +1,13 @@
 #!/bin/bash
 
+if [[ $EUID -ne 0 ]]; then
+	echo "This script must be executed as SUDO or ROOT"
+	exit 1
+fi
+
 LINE=$(grep GRUB_CMDLINE_LINUX_DEFAULT /etc/default/grub)
 LENGTH=$(grep GRUB_CMDLINE_LINUX_DEFAULT /etc/default/grub | awk '{print length}')
-LENGTH=$(($LENGTH-1))
+LENGTH=$((LENGTH-1))
 CONSOLE_PARAMS="console=tty0 console=ttyS0,115200"
 FINAL_LINE="${LINE:0:$LENGTH} ${CONSOLE_PARAMS}\""
 sed -i "s/${LINE}/${FINAL_LINE}/g" /etc/default/grub
@@ -11,7 +16,7 @@ sed -i "s/GRUB_TERMINAL_INPUT=console/GRUB_TERMINAL_INPUT=\"console serial\"/g" 
 sed -i "s/#GRUB_TERMINAL_OUTPUT=console/GRUB_TERMINAL_OUTPUT=\"gfxterm serial\"/g" /etc/default/grub
 
 POS=$(grep -n GRUB_TERMINAL_OUTPUT /etc/default/grub | awk -F ':' '{print $1}')
-POS=$(($POS+1))
+POS=$((POS+1))
 sed -i "$POS i GRUB_SERIAL_COMMAND=\"serial --unit=0 --speed=115200 --word=8 --parity=no --stop=1\"" /etc/default/grub
 #sed -i "$POS i GRUB_SERIAL_COMMAND=\"serial --unit=0 --speed=115200\" /etc/default/grub
 
