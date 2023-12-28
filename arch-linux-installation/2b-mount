@@ -26,16 +26,40 @@ SSD_options="noatime,compress=zstd,commit=120"
 
 mount -v "$2" -o $SSD_options,subvol="$4" "$3"
 cd "$3" || exit
+pwd
 
 if [ ! -d "btr_pool" ]; then
 	CREATE_DIRS=true
-fi
-
-if [ "$CREATE_DIRS" = true ]; then
-	mkdir -v {btr_pool,boot,home,root,var}
+	mkdir -v btr_pool
 fi
 
 mount -v "$2" -o $SSD_options,subvol=/ btr_pool
+
+SUBVOL="btr_pool/$4"
+SUBVOL_VAR="btr_pool/$5"
+
+if [[ ! -d "$SUBVOL" ]]; then
+	echo "Subvolume $SUBVOL does not exist"
+	umount -v btr_pool
+	rmdir -v btr_pool
+	cd - || exit
+	umount -vR "$3"
+	exit 1
+fi
+
+if [[ ! -d "$SUBVOL_VAR" ]]; then
+	echo "Subvolume $SUBVOL_VAR does not exist"
+	umount -v btr_pool
+	rmdir -v btr_pool
+	cd - || exit
+	umount -vR "$3"
+	exit 1
+fi
+
+if [ "$CREATE_DIRS" = true ]; then
+	mkdir -v {boot,home,root,var}
+fi
+
 mount -v "$1" boot
 mount -v "$2" -o $SSD_options,subvol=@home home
 
@@ -57,12 +81,13 @@ fi
 mount -v --bind btr_pool/@bkp_off/downloads home/jayson/Downloads
 mount -v --bind btr_pool/@bkp_off/cache_home home/jayson/.cache
 
+mount -v "$2" -o $SSD_options,subvol="$5" var
+
 if [ "$CREATE_DIRS" = true ]; then
 	mkdir -v var/{cache,tmp,lib,snap}
 	mkdir -v var/lib/{flatpak,portables,machines}
 fi
 
-mount -v "$2" -o $SSD_options,subvol="$5" var
 mount -v "$2" -o $SSD_options,subvol=@snap var/snap
 mount -v "$2" -o $SSD_options,subvol=@flatpak var/lib/flatpak
 mount -v "$2" -o $SSD_options,subvol=/var/@portables var/lib/portables
