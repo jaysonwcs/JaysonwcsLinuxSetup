@@ -1,11 +1,18 @@
 #!/bin/bash
 
 select_device() {
+	unset devs
+	unset dev
+	unset command
+
 	declare -a devs
 	mapfile -t devs < <( lsblk -lo NAME )
 
 	for dev in "${devs[@]}"; do
-		command="$command $dev $dev OFF"
+		if [[ $dev != "NAME" ]]; then
+			declare -u devname=$dev
+			command="$command /dev/$dev $devname OFF"
+		fi
 	done
 
 	tmp_file=$(mktemp)
@@ -13,13 +20,13 @@ select_device() {
 	trap "/bin/rm -f $tmp_file" EXIT SIGHUP SIGINT SIGTRAP SIGTERM
 
 	command="dialog --radiolist 'Selecione o dispositivo' 0 0 ${#devs[@]} $command 2> $tmp_file"
+	#command="echo '${#devs[@]} $command'"
 
 	bash -c "$command"
 
-	clear
+	#clear
 
 	device=$(cat "$tmp_file")
 
-	# lsblk /dev/"$device"
 	echo "$device"
 }
