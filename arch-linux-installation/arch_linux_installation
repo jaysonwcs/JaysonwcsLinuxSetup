@@ -1,0 +1,25 @@
+#!/bin/bash
+
+select_device() {
+	declare -a devs
+	mapfile -t devs < <( lsblk -lo NAME )
+
+	for dev in "${devs[@]}"; do
+		command="$command $dev $dev OFF"
+	done
+
+	tmp_file=$(mktemp)
+	# shellcheck disable=SC2064
+	trap "/bin/rm -f $tmp_file" EXIT SIGHUP SIGINT SIGTRAP SIGTERM
+
+	command="dialog --radiolist 'Selecione o dispositivo' 0 0 ${#devs[@]} $command 2> $tmp_file"
+
+	bash -c "$command"
+
+	clear
+
+	device=$(cat "$tmp_file")
+
+	# lsblk /dev/"$device"
+	echo "$device"
+}
