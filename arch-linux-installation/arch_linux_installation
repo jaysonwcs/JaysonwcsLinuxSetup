@@ -5,28 +5,81 @@ select_device() {
 	unset dev
 	unset command
 
-	declare -a devs
-	mapfile -t devs < <( lsblk -lo NAME )
+	# declare -a devs
+	mapfile -t devs < <( lsblk -nlo NAME )
+	# mapfile -t descriptions < <( lsblk -nlo TYPE,FSTYPE,MODEL,LABEL,PARTLABEL,SIZE,MOUNTPOINT )
+	mapfile -t types < <( lsblk -nlo TYPE )
+	mapfile -t fstypes < <( lsblk -nlo FSTYPE )
+	mapfile -t models < <( lsblk -nlo MODEL )
+	mapfile -t labels < <( lsblk -nlo LABEL )
+	mapfile -t partlabels < <( lsblk -nlo PARTLABEL )
+	mapfile -t sizes < <( lsblk -nlo SIZE )
+	mapfile -t mountpoints < <( lsblk -nlo MOUNTPOINT )
+	mapfile -t loops < <( losetup -naO BACK-FILE )
 
-	for dev in "${devs[@]}"; do
-		if [[ $dev != "NAME" ]]; then
-			declare -u devname=$dev
-			command="$command /dev/$dev $devname OFF"
+	for (( i=0; i<"${#devs[@]}"; i++ )); do
+		if [[ -n "${loops[i]}" ]]; then
+			loop_device="${loops[i]}"
+		else
+			unset loop_device
 		fi
+
+		# descript=${descriptions[i]}
+		##command="$command /dev/${devs[i]} \"$descript $loop_device\" OFF"
+		#command="$command FALSE /dev/${devs[i]}"
+		command+=(FALSE "/dev/${devs[i]}" \
+						# "${types[i]}" \
+						"${fstypes[i]}" \
+						"${models[i]}" \
+						"${labels[i]}" \
+						"${partlabels[i]}" \
+						"${sizes[i]}" \
+						"${mountpoints[i]}" \
+						"$loop_device")
 	done
+
+	# for (( i=0; i<"${#devs[@]}"; i++ )); do
+	# 	# declare -u devname
+	# 	devname=$(losetup /dev/"${devs[i]}")
+	# 	if [[ $? == 1 ]]; then
+	# 		devname=$(lsblk -nlo LABEL,MODEL,PARTLABEL,MOUNTPOINT /dev/"${devs[i]}")
+	# 	fi
+	# 	command="$command /dev/${devs[i]} \"$devname\" OFF"
+	# done
 
 	tmp_file=$(mktemp)
 	# shellcheck disable=SC2064
-	trap "/bin/rm -f $tmp_file" EXIT SIGHUP SIGINT SIGTRAP SIGTERM
+	trap "/bin/rm -f $tmp_file" ERR EXIT SIGHUP SIGINT SIGTRAP SIGTERM
 
-	command="dialog --radiolist 'Selecione o dispositivo' 0 0 ${#devs[@]} $command 2> $tmp_file"
+	# command="dialog --radiolist 'Selecione o dispositivo' 0 0 ${#devs[@]} $command 2> $tmp_file"
+	command=(zenity --list --height=500 --width=2000 --radiolist \
+				--column "Selection" --column "Device" \
+				# --column "Type" \
+				--column "FS Type" \
+				--column "Model" \
+				--column "Label" \
+				--column "Part Label" \
+				--column "Size" \
+				--column "Mountpoint" \
+				--column "Loop back-file" \
+				"${command[@]}")
 	#command="echo '${#devs[@]} $command'"
 
-	bash -c "$command"
+	echo "${command[@]}"
 
-	#clear
+	# clear
 
-	device=$(cat "$tmp_file")
+	# device=$(cat "$tmp_file")
 
-	echo "$device"
+	/bin/rm -f "$tmp_file"
+
+	trap - ERR EXIT SIGHUP SIGINT SIGTRAP SIGTERM
+
+	"${command[@]}"
+	# echo "$device"
+}
+
+display_zenity() {
+	echo "$1"
+	zenity --list --height=500 --width=500 --radiolist --column "Selection" --column "Device" "$1"
 }
